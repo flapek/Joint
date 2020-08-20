@@ -1,32 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Deterministic>false</Deterministic>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<Deterministic>false</Deterministic>
+		<AssemblyName>SCL.Auth.cs</AssemblyName>
+		<RootNamespace>SCL.Auth</RootNamespace>
+		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
+		<AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
+		<AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
+		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
+		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
+		<Company></Company>
+		<Authors>Marcin Filapek</Authors>
+		<Copyright></Copyright>
+		<Product>SCL.Auth</Product>
+		<PackageId>SCL.Auth</PackageId>
+		<PackageDescription>This package its created for common functionality.</PackageDescription>
+		<RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
+	</PropertyGroup>
 
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Convey" Version="0.4.344" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <AssemblyName>Assembly.cs</AssemblyName>
-    <RootNamespace>SCL.Auth</RootNamespace>
-    <VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
-    <AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
-    <AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
-    <Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
-    <Company></Company>
-    <Authors>Marcin Filapek</Authors>
-    <Copyright></Copyright>
-    <Product>SCL.Auth</Product>
-    <PackageId>SCL.Auth</PackageId>
-    <PackageDescription>This package its created for common functionality.</PackageDescription>
-    <RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Convey" Version="0.4.344" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
+	</ItemGroup>
 
 </Project>
