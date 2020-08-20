@@ -15,20 +15,15 @@ jobs:
     name: Update NuGet package
     steps:
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Setup .NET Core @ Latest
-        uses: actions/setup-dotnet@v2
-        with:
-          source-url: https://nuget.pkg.github.com/flapek/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.Packages_TOKEN}}        
-
+        run: dotnet nuget add source https://nuget.pkg.github.com/flapek/index.json -n github -u flapek -p ${{secrets.Packages_TOKEN}} 
+        
       - name: Build solution and generate NuGet package
         run: |  
           cd ./src/SCL
           dotnet pack -c Release -o Package  
 
       - name: Push generated package to GitHub registry
-        run: dotnet nuget push ./src/SCL/Package/*.nupkg --skip-duplicate --no-symbols true
+        run: |
+          cd ./src/SCL/Package
+          dotnet nuget push *.nupkg --skip-duplicate --no-symbols true
