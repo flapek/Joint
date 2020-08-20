@@ -8,6 +8,7 @@ namespace SCL.Auth.Core
         public bool AuthenticationDisabled { get; set; }
         public IEnumerable<string> AllowAnonymousEndpoints { get; set; }
         public CertificateOptions Certificate { get; set; }
+        public string AuthenticationProviderKey { get; set; }
         public string Algorithm { get; set; }
         public string Issuer { get; set; }
         public string IssuerSigningKey { get; set; }

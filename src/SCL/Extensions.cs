@@ -46,7 +46,7 @@ namespace SCL.Auth.Infrastructure
                     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(o =>
+                .AddJwtBearer(options.AuthenticationProviderKey , o =>
                 {
                     o.Authority = options.Authority;
                     o.Audience = options.Audience;
