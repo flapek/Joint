@@ -23,7 +23,7 @@ jobs:
         with:
           source-url: https://nuget.pkg.github.com/flapek/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+          NUGET_AUTH_TOKEN: ${{secrets.Packages_TOKEN}}        
 
       - name: Build solution and generate NuGet package
         run: |  
