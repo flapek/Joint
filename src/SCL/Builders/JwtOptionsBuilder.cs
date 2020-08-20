@@ -1,8 +1,8 @@
-using Epilepsy_Health_App.Service.Common.Auth.Application;
-using Epilepsy_Health_App.Service.Common.Auth.Core;
+using SCL.Auth.Application;
+using SCL.Auth.Core;
 using System;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Infrastructure.Builders
+namespace SCL.Auth.Infrastructure.Builders
 {
     internal sealed class JwtOptionsBuilder : IJwtOptionsBuilder
     {

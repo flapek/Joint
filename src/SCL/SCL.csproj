@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <AssemblyName>Epilepsy_Health_App.Service.Common.Auth.cs</AssemblyName>
-    <RootNamespace>Epilepsy_Health_App.Service.Common.Auth</RootNamespace>
+    <AssemblyName>Assembly.cs</AssemblyName>
+    <RootNamespace>SCL.Auth</RootNamespace>
     <VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
     <AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
     <AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
@@ -23,10 +23,10 @@
     <Company></Company>
     <Authors>Marcin Filapek</Authors>
     <Copyright></Copyright>
-    <Product>Epilepsy_Health_App.Service.Common.Auth</Product>
-    <PackageId>Epilepsy_Health_App.Service.Common.Auth</PackageId>
+    <Product>SCL.Auth</Product>
+    <PackageId>SCL.Auth</PackageId>
     <PackageDescription>This package its created for common functionality.</PackageDescription>
-    <RepositoryUrl>https://github.com/flapek/Epilepsy_Health_App.Service.Common </RepositoryUrl>
+    <RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-using Epilepsy_Health_App.Service.Common.Auth.Core;
+using SCL.Auth.Core;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Application
+namespace SCL.Auth.Application
 {
     public interface IJwtOptionsBuilder
     {

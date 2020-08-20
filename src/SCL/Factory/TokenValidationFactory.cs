@@ -1,10 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Epilepsy_Health_App.Service.Common.Auth.Core;
+using SCL.Auth.Core;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Infrastructure.Factory
+namespace SCL.Auth.Infrastructure.Factory
 {
     internal static class TokenvalidationFactory
     {

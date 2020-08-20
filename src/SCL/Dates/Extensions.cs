@@ -1,6 +1,6 @@
 using System;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Core.Dates
+namespace SCL.Auth.Core.Dates
 {
     internal static class Extensions
     {

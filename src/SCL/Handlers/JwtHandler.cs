@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Epilepsy_Health_App.Service.Common.Auth.Core.Dates;
+using SCL.Auth.Core.Dates;
 using Microsoft.IdentityModel.Tokens;
-using Epilepsy_Health_App.Service.Common.Auth.Core.Types;
-using Epilepsy_Health_App.Service.Common.Auth.Core;
+using SCL.Auth.Core.Types;
+using SCL.Auth.Core;
 using System.Security.Cryptography;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Application.Handlers
+namespace SCL.Auth.Application.Handlers
 {
     internal sealed class JwtHandler : IJwtHandler
     {

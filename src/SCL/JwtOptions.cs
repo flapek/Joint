@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Core
+namespace SCL.Auth.Core
 {
     public class JwtOptions
     {

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Convey;
-using Epilepsy_Health_App.Service.Common.Auth.Core;
-using Epilepsy_Health_App.Service.Common.Auth.Infrastructure.Factory;
+using SCL.Auth.Core;
+using SCL.Auth.Infrastructure.Factory;
 
-namespace Epilepsy_Health_App.Service.Common.Auth.Infrastructure
+namespace SCL.Auth.Infrastructure
 {
     public static class Extensions
     {
