@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Convey;
 using SCL.Auth.Core;
 using SCL.Auth.Infrastructure.Factory;
+using SCL.Auth.Application;
+using SCL.Auth.Application.Handlers;
 
 namespace SCL.Auth.Infrastructure
 {
@@ -41,31 +43,32 @@ namespace SCL.Auth.Infrastructure
             tokenValidationParameters.AddRoleClaimType(options);
 
             builder.Services
-                .AddAuthentication(o =>
+                .AddAuthentication(option =>
                 {
-                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options.AuthenticationProviderKey , o =>
+                .AddJwtBearer(options.AuthenticationProviderKey , option =>
                 {
-                    o.Authority = options.Authority;
-                    o.Audience = options.Audience;
-                    o.MetadataAddress = options.MetadataAddress;
-                    o.SaveToken = options.SaveToken;
-                    o.RefreshOnIssuerKeyNotFound = options.RefreshOnIssuerKeyNotFound;
-                    o.RequireHttpsMetadata = options.RequireHttpsMetadata;
-                    o.IncludeErrorDetails = options.IncludeErrorDetails;
-                    o.TokenValidationParameters = tokenValidationParameters;
+                    option.Authority = options.Authority;
+                    option.Audience = options.Audience;
+                    option.MetadataAddress = options.MetadataAddress;
+                    option.SaveToken = options.SaveToken;
+                    option.RefreshOnIssuerKeyNotFound = options.RefreshOnIssuerKeyNotFound;
+                    option.RequireHttpsMetadata = options.RequireHttpsMetadata;
+                    option.IncludeErrorDetails = options.IncludeErrorDetails;
+                    option.TokenValidationParameters = tokenValidationParameters;
                     if (!string.IsNullOrWhiteSpace(options.Challenge))
                     {
-                        o.Challenge = options.Challenge;
+                        option.Challenge = options.Challenge;
                     }
 
-                    optionsFactory?.Invoke(o);
+                    optionsFactory?.Invoke(option);
                 });
 
             builder.Services.AddSingleton(options);
             builder.Services.AddSingleton(tokenValidationParameters);
+            builder.Services.AddTransient<IJwtHandler, JwtHandler>();
 
             return builder;
         }
