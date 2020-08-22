@@ -73,7 +73,8 @@ namespace SCL.Auth.Application.Handlers
                 : now.AddMinutes(_options.ExpiryMinutes);
 
             var jwt = new JwtSecurityToken(
-                _issuer,
+                issuer: _issuer,
+                audience: _options.Audience,
                 claims: jwtClaims,
                 notBefore: now,
                 expires: expires,
