@@ -6,17 +6,26 @@
 		<Deterministic>false</Deterministic>
 		<AssemblyName>SCL.Auth.cs</AssemblyName>
 		<RootNamespace>SCL.Auth</RootNamespace>
-		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
-		<Company></Company>
+	</PropertyGroup>
+	
+	<!--Package info-->
+	<PropertyGroup>
 		<Authors>Marcin Filapek</Authors>
 		<Copyright></Copyright>
+		<Company></Company>
 		<Product>SCL.Auth</Product>
 		<PackageId>SCL.Auth</PackageId>
 		<PackageDescription>This package its created for common functionality.</PackageDescription>
+		<PackageTags>JWT; Bearer;</PackageTags>
+		<Description>
+			The library give method to registry authentication to project and have custom method to create jwt token.
+		</Description>
 		<RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
 	</PropertyGroup>
 	
+	<!--Version-->
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release'">
+		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
 		<AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
 		<AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
 		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
