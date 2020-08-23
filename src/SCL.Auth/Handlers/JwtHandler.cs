@@ -16,7 +16,6 @@ namespace SCL.Auth.Application.Handlers
         private readonly JwtOptions _options;
         private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly SigningCredentials _signingCredentials;
-        private readonly string _issuer;
 
         public JwtHandler(JwtOptions options, TokenValidationParameters tokenValidationParameters)
         {
@@ -34,7 +33,6 @@ namespace SCL.Auth.Application.Handlers
             _options = options;
             _tokenValidationParameters = tokenValidationParameters;
             _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
-            _issuer = options.Issuer;
         }
 
         public JsonWebToken CreateToken(User user)
@@ -73,7 +71,7 @@ namespace SCL.Auth.Application.Handlers
                 : now.AddMinutes(_options.ExpiryMinutes);
 
             var jwt = new JwtSecurityToken(
-                issuer: _issuer,
+                issuer: _options.Issuer,
                 audience: _options.Audience,
                 claims: jwtClaims,
                 notBefore: now,

@@ -36,38 +36,21 @@ namespace SCL.Auth.Infrastructure
             }
 
             var tokenValidationParameters = TokenvalidationFactory.CreateParameters(options);
-            tokenValidationParameters.AddAuthenticationType(options);
-            var hasCertificate = tokenValidationParameters.AddCertificate(options);
-            tokenValidationParameters.AddIssuerSigningKey(options, hasCertificate);
-            tokenValidationParameters.AddNameClaimType(options);
-            tokenValidationParameters.AddRoleClaimType(options);
+            tokenValidationParameters.AddIssuerSigningKey(options);
 
             builder.Services
                 .AddAuthentication(option =>
                 {
-                    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    option.DefaultAuthenticateScheme = options.AuthenticateSchema;
                 })
                 .AddJwtBearer(options.AuthenticationProviderKey , option =>
                 {
-                    option.Authority = options.Authority;
-                    option.Audience = options.Audience;
-                    option.MetadataAddress = options.MetadataAddress;
-                    option.SaveToken = options.SaveToken;
-                    option.RefreshOnIssuerKeyNotFound = options.RefreshOnIssuerKeyNotFound;
                     option.RequireHttpsMetadata = options.RequireHttpsMetadata;
-                    option.IncludeErrorDetails = options.IncludeErrorDetails;
                     option.TokenValidationParameters = tokenValidationParameters;
-                    if (!string.IsNullOrWhiteSpace(options.Challenge))
-                    {
-                        option.Challenge = options.Challenge;
-                    }
 
                     optionsFactory?.Invoke(option);
                 });
 
-            builder.Services.AddSingleton(options);
-            builder.Services.AddSingleton(tokenValidationParameters);
             builder.Services.AddTransient<IJwtHandler, JwtHandler>();
 
             return builder;
