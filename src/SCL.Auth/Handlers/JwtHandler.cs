@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace SCL.Auth.Application.Handlers
 {
-    internal sealed class JwtHandler : IJwtHandler
+    public sealed class JwtHandler : IJwtHandler
     {
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         private readonly JwtOptions _options;
