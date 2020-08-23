@@ -19,7 +19,7 @@ namespace SCL.Auth.Core
         public bool SaveToken { get; set; } = true;
         public bool SaveSigninToken { get; set; }
         public bool RequireAudience { get; set; } = true;
-        public bool RequireHttpsMetadata { get; set; } = true;
+        public bool RequireHttpsMetadata { get; set; } = false;
         public bool RequireExpirationTime { get; set; } = true;
         public bool RequireSignedTokens { get; set; } = true;
         public int ExpiryMinutes { get; set; }
