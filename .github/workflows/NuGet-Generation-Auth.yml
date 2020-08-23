@@ -17,11 +17,11 @@ jobs:
         
       - name: Build solution and generate NuGet package
         run: |  
-          cd ./src/SCL.Auth
+          cd src/SCL.Auth
           dotnet pack -c Release -o Package  
 
       - name: Push generated package to GitHub registry
         run: |
-          cd ./src/SCL.Auth/Package
+          cd src/SCL.Auth/Package
           dotnet nuget push *.nupkg --api-key ${{secrets.SCL_AUTH_PACKAGES_KEY}} --skip-duplicate --source https://api.nuget.org/v3/index.json
           
