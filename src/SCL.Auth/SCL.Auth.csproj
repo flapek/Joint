@@ -25,7 +25,7 @@
 	
 	<!--Version-->
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release'">
-		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
+		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(ddMMyyyy))</VersionSuffix>
 		<AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
 		<AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
 		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
