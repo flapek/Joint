@@ -51,6 +51,8 @@ namespace SCL.Auth.Infrastructure
                     optionsFactory?.Invoke(option);
                 });
 
+            builder.Services.AddSingleton(options);
+            builder.Services.AddSingleton(tokenValidationParameters);
             builder.Services.AddTransient<IJwtHandler, JwtHandler>();
 
             return builder;
