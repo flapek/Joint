@@ -14,16 +14,14 @@ jobs:
     runs-on: ubuntu-18.04
     name: Update NuGet package
     steps:
-
-      - name: Setup .NET Core @ Latest
-        run: dotnet nuget add source https://nuget.pkg.github.com/flapek/index.json -n github -u flapek -p ${{secrets.Packages_TOKEN}} 
         
       - name: Build solution and generate NuGet package
         run: |  
-          cd ./src/SCL
+          cd ./src/SCL.Auth
           dotnet pack -c Release -o Package  
 
       - name: Push generated package to GitHub registry
         run: |
-          cd ./src/SCL/Package
-          dotnet nuget push *.nupkg --skip-duplicate --no-symbols true
+          cd ./src/SCL.Auth/Package
+          dotnet nuget push *.nupkg --api-key ${{secrets.SCL_AUTH_PACKAGES_KEY}} --skip-duplicate --source https://api.nuget.org/v3/index.json
+          
