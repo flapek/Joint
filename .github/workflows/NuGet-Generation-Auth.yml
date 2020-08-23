@@ -16,10 +16,8 @@ jobs:
     steps:
         
       - name: Build solution and generate NuGet package
-        working-directory: src/SCL.Auth
         run: dotnet pack -c Release -o Package  
 
       - name: Push generated package to GitHub registry
-        working-directory: src/SCL.Auth/Package
-        run: dotnet nuget push *.nupkg --api-key ${{secrets.SCL_AUTH_PACKAGES_KEY}} --skip-duplicate --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./Package/SCL.Auth.*.nupkg --api-key ${{secrets.SCL_AUTH_PACKAGES_KEY}} --skip-duplicate --source https://api.nuget.org/v3/index.json
           
