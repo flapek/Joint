@@ -11,7 +11,7 @@ namespace SCL.Auth.Infrastructure.Factory
             => new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
-                RequireSignedTokens = true,
+                RequireSignedTokens = options.RequireSignedTokens,
                 ValidateIssuer = options.ValidateIssuer,
                 ValidIssuer = options.Issuer,
                 ValidateAudience = options.ValidateAudience,

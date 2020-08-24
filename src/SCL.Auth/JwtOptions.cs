@@ -9,12 +9,12 @@ namespace SCL.Auth.Core
         public string Audience { get; set; }
         public int ExpiryMinutes { get; set; }
         public TimeSpan? Expiry { get; set; }
+        public bool ValidateIssuerSigningKey { get; set; }
         public bool RequireHttpsMetadata { get; set; } = false;
         public bool RequireExpirationTime { get; set; } = true;
         public bool ValidateAudience { get; set; } = true;
         public bool ValidateIssuer { get; set; } = true;
         public bool ValidateLifetime { get; set; } = true;
-        public bool ValidateIssuerSigningKey { get; set; }
-
+        public bool RequireSignedTokens { get; set; } = true;
     }
 }
