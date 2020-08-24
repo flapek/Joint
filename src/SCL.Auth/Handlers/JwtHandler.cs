@@ -25,14 +25,9 @@ namespace SCL.Auth.Application.Handlers
                 throw new InvalidOperationException("Issuer signing key not set.");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Algorithm))
-            {
-                throw new InvalidOperationException("Security algorithm not set.");
-            }
-
             _options = options;
             _tokenValidationParameters = tokenValidationParameters;
-            _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
+            _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
         }
 
         public JsonWebToken CreateToken(User user)
@@ -45,7 +40,7 @@ namespace SCL.Auth.Application.Handlers
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),

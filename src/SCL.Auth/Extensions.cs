@@ -1,6 +1,5 @@
 using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Convey;
 using SCL.Auth.Core;
@@ -41,9 +40,9 @@ namespace SCL.Auth.Infrastructure
             builder.Services
                 .AddAuthentication(option =>
                 {
-                    option.DefaultAuthenticateScheme = options.AuthenticateSchema;
+                    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options.AuthenticationProviderKey , option =>
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
                 {
                     option.RequireHttpsMetadata = options.RequireHttpsMetadata;
                     option.TokenValidationParameters = tokenValidationParameters;
@@ -57,10 +56,5 @@ namespace SCL.Auth.Infrastructure
 
             return builder;
         }
-
-        public static IApplicationBuilder UseJwt(this IApplicationBuilder app)
-            => app
-            .UseAuthentication()
-            .UseAuthorization();
     }
 }
