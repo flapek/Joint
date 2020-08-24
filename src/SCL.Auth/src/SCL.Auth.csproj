@@ -16,7 +16,7 @@
 		<Product>SCL.Auth</Product>
 		<PackageId>SCL.Auth</PackageId>
 		<PackageDescription>This package its created for common functionality.</PackageDescription>
-		<PackageTags>JWT; Bearer;</PackageTags>
+		<PackageTags>JWT; Bearer; SCL.Auth</PackageTags>
 		<Description>
 			The library give method to registry authentication to project and have custom method to create jwt token.
 		</Description>
