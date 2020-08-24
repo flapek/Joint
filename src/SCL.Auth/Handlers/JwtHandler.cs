@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using SCL.Auth.Core.Dates;
 using Microsoft.IdentityModel.Tokens;
-using SCL.Auth.Core.Types;
-using SCL.Auth.Core;
 using System.Security.Cryptography;
+using SCL.Auth.Types;
+using SCL.Auth.Dates;
 
-namespace SCL.Auth.Application.Handlers
+namespace SCL.Auth.Handlers
 {
-    public sealed class JwtHandler : IJwtHandler
+    internal sealed class JwtHandler : IJwtHandler
     {
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         private readonly JwtOptions _options;
@@ -25,9 +24,14 @@ namespace SCL.Auth.Application.Handlers
                 throw new InvalidOperationException("Issuer signing key not set.");
             }
 
+            if (string.IsNullOrWhiteSpace(options.Algorithm))
+            {
+                throw new InvalidOperationException("Security algorithm not set.");
+            }
+
             _options = options;
             _tokenValidationParameters = tokenValidationParameters;
-            _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
+            _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
         }
 
         public JsonWebToken CreateToken(User user)
@@ -40,7 +44,7 @@ namespace SCL.Auth.Application.Handlers
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
@@ -49,16 +53,6 @@ namespace SCL.Auth.Application.Handlers
             if (!string.IsNullOrWhiteSpace(user.Username))
             {
                 jwtClaims.Add(new Claim(ServerClaimNames.Username, user.Username));
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.ServerToken))
-            {
-                jwtClaims.Add(new Claim(ServerClaimNames.ServerToken, user.ServerToken));
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.ServerName))
-            {
-                jwtClaims.Add(new Claim(ServerClaimNames.ServerName, user.ServerName));
             }
 
             var expires = _options.Expiry.HasValue
@@ -85,7 +79,7 @@ namespace SCL.Auth.Application.Handlers
             };
         }
 
-        public JsonWebRefreshToken CreateRefreshToken(string accessToken)
+        public JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId)
         {
             _jwtSecurityTokenHandler.ValidateToken(accessToken, _tokenValidationParameters,
                 out var validatedSecurityToken);
@@ -96,12 +90,7 @@ namespace SCL.Auth.Application.Handlers
             using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
             var randomBytes = new byte[128];
             rngCryptoServiceProvider.GetBytes(randomBytes);
-            return new JsonWebRefreshToken
-            {
-                Token = Convert.ToBase64String(randomBytes),
-                Expires = jwt.ValidTo.ToTimestamp(),
-                Created = DateTime.Now
-            };
+            return new JsonWebRefreshToken(new Guid(), userId, Convert.ToBase64String(randomBytes), jwt.ValidTo, DateTime.Now);
         }
     }
 }

@@ -1,12 +1,12 @@
-using SCL.Auth.Core;
-using SCL.Auth.Core.Types;
+using SCL.Auth.Types;
+using System;
 
-namespace SCL.Auth.Application
+namespace SCL.Auth
 {
     public interface IJwtHandler
     {
         JsonWebToken CreateToken(User user);
 
-        JsonWebRefreshToken CreateRefreshToken(string accessToken);
+        JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId);
     }
 }
