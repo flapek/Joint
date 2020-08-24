@@ -31,5 +31,13 @@
 		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
 		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="5.5.1" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\SCL\src\SCL.Config\SCL.csproj" />
+	</ItemGroup>
 
 </Project>

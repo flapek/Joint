@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SCL.Docs.Swagger", "SCL.Doc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ECA90372-277F-4CF7-8FC2-796535E6E44C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCL.Docs.Swagger1", "src\SCL.Docs.Swagger\src\SCL.Docs.Swagger1\SCL.Docs.Swagger1.csproj", "{5483FC88-FB48-4ABF-901D-68C3A0937DF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCL.Docs.Swagger", "src\SCL.Docs.Swagger\src\SCL.Docs.Swagger1\SCL.Docs.Swagger.csproj", "{5483FC88-FB48-4ABF-901D-68C3A0937DF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
