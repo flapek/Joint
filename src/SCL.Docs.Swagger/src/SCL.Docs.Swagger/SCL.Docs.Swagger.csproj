@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
-    <AssemblyName>SCL.Auth.cs</AssemblyName>
-    <RootNamespace>SCL.Auth</RootNamespace>
+    <AssemblyName>SCL.Docs.Swagger.cs</AssemblyName>
+    <RootNamespace>SCL.Docs.Swagger</RootNamespace>
   </PropertyGroup>
 
   <!--Package info-->
@@ -13,12 +13,12 @@
     <Authors>Marcin Filapek</Authors>
     <Copyright></Copyright>
     <Company></Company>
-    <Product>SCL.Auth</Product>
-    <PackageId>SCL.Auth</PackageId>
+    <Product>SCL.Docs.Swagger</Product>
+    <PackageId>SCL.Docs.Swagger</PackageId>
     <PackageDescription>This package its created for common functionality.</PackageDescription>
-    <PackageTags>JWT; Bearer; SCL.Auth</PackageTags>
+    <PackageTags>SCL.Docs.Swagger; Swagger;</PackageTags>
     <Description>
-      The library give method to registry authentication to project and have custom method to create jwt token.
+      The library help prepare docker documentation.
     </Description>
     <RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
   </PropertyGroup>
@@ -39,22 +39,23 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.None.Increment.None</AssemblyVersionSettings>
     <UpdatePackageVersion>True</UpdatePackageVersion>
     <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <AssemblyFileVersionSettings>None.None.Increment.None</AssemblyFileVersionSettings>
-    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
     <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+    <AssemblyFileVersionSettings>None.None.Increment.None</AssemblyFileVersionSettings>
+    <AssemblyVersionSettings>None.None.Increment.None</AssemblyVersionSettings>
+    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Convey" Version="0.4.344" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SCL\src\SCL.csproj" />
+    <ProjectReference Include="..\..\..\SCL\src\SCL.csproj" />
   </ItemGroup>
 
 </Project>

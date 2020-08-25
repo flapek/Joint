@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
-    <AssemblyName>SCL.Auth.cs</AssemblyName>
-    <RootNamespace>SCL.Auth</RootNamespace>
+    <AssemblyName>SCL.cs</AssemblyName>
+    <RootNamespace>SCL</RootNamespace>
   </PropertyGroup>
 
   <!--Package info-->
@@ -13,13 +13,11 @@
     <Authors>Marcin Filapek</Authors>
     <Copyright></Copyright>
     <Company></Company>
-    <Product>SCL.Auth</Product>
-    <PackageId>SCL.Auth</PackageId>
+    <Product>SCL</Product>
+    <PackageId>SCL</PackageId>
     <PackageDescription>This package its created for common functionality.</PackageDescription>
-    <PackageTags>JWT; Bearer; SCL.Auth</PackageTags>
-    <Description>
-      The library give method to registry authentication to project and have custom method to create jwt token.
-    </Description>
+    <PackageTags>SCL</PackageTags>
+    <Description></Description>
     <RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
   </PropertyGroup>
 
@@ -51,10 +49,6 @@
   <ItemGroup>
     <PackageReference Include="Convey" Version="0.4.344" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\SCL\src\SCL.csproj" />
   </ItemGroup>
 
 </Project>

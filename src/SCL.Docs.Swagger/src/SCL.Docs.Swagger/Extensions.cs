@@ -17,12 +17,12 @@ namespace SCL.Docs.Swagger
             {
                 sectionName = SectionName;
             }
-            
+
             var options = builder.GetOptions<SwaggerOptions>(sectionName);
             return builder.AddSwaggerDocs(options);
         }
-        
-        public static ISCLBuilder AddSwaggerDocs(this ISCLBuilder builder, 
+
+        public static ISCLBuilder AddSwaggerDocs(this ISCLBuilder builder,
             Func<ISwaggerOptionsBuilder, ISwaggerOptionsBuilder> buildOptions)
         {
             var options = buildOptions(new SwaggerOptionsBuilder()).Build();
@@ -39,7 +39,17 @@ namespace SCL.Docs.Swagger
             builder.Services.AddSingleton(options);
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc(options.Name, new OpenApiInfo{Title = options.Title, Version = options.Version});
+                c.SwaggerDoc(options.Name,
+                    new OpenApiInfo
+                    {
+                        Title = options.Title,
+                        Version = options.Version,
+                        Contact = new OpenApiContact
+                        {
+                            Name = options.ContactName,
+                            Email = options.ContactEmail
+                        }
+                    });
                 if (options.IncludeSecurity)
                 {
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

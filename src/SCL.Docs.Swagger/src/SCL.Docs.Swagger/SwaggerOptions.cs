@@ -9,5 +9,7 @@ namespace SCL.Docs.Swagger
         public string Version { get; set; }
         public string RoutePrefix { get; set; }
         public bool IncludeSecurity { get; set; }
+        public string ContactName { get; set; }
+        public string ContactEmail { get;  set; }
     }
 }
