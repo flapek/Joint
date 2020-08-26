@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace SCL.Auth.Core
+namespace SCL.Auth.Types
 {
     public class JwtOptions
     {
         public bool AuthenticationDisabled { get; set; }
         public IEnumerable<string> AllowAnonymousEndpoints { get; set; }
         public CertificateOptions Certificate { get; set; }
-        public string AuthenticationProviderKey { get; set; }
         public string Algorithm { get; set; }
         public string Issuer { get; set; }
         public string IssuerSigningKey { get; set; }
@@ -19,7 +18,7 @@ namespace SCL.Auth.Core
         public bool SaveToken { get; set; } = true;
         public bool SaveSigninToken { get; set; }
         public bool RequireAudience { get; set; } = true;
-        public bool RequireHttpsMetadata { get; set; } = false;
+        public bool RequireHttpsMetadata { get; set; } = true;
         public bool RequireExpirationTime { get; set; } = true;
         public bool RequireSignedTokens { get; set; } = true;
         public int ExpiryMinutes { get; set; }

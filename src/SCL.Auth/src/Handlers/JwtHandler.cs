@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using SCL.Auth.Core.Dates;
 using Microsoft.IdentityModel.Tokens;
-using SCL.Auth.Core.Types;
-using SCL.Auth.Core;
 using System.Security.Cryptography;
+using SCL.Auth.Types;
+using SCL.Auth.Dates;
 
-namespace SCL.Auth.Application.Handlers
+namespace SCL.Auth.Handlers
 {
     internal sealed class JwtHandler : IJwtHandler
     {
@@ -16,7 +15,6 @@ namespace SCL.Auth.Application.Handlers
         private readonly JwtOptions _options;
         private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly SigningCredentials _signingCredentials;
-        private readonly string _issuer;
 
         public JwtHandler(JwtOptions options, TokenValidationParameters tokenValidationParameters)
         {
@@ -34,7 +32,6 @@ namespace SCL.Auth.Application.Handlers
             _options = options;
             _tokenValidationParameters = tokenValidationParameters;
             _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
-            _issuer = options.Issuer;
         }
 
         public JsonWebToken CreateToken(User user)
@@ -58,22 +55,12 @@ namespace SCL.Auth.Application.Handlers
                 jwtClaims.Add(new Claim(ServerClaimNames.Username, user.Username));
             }
 
-            if (!string.IsNullOrWhiteSpace(user.ServerToken))
-            {
-                jwtClaims.Add(new Claim(ServerClaimNames.ServerToken, user.ServerToken));
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.ServerName))
-            {
-                jwtClaims.Add(new Claim(ServerClaimNames.ServerName, user.ServerName));
-            }
-
             var expires = _options.Expiry.HasValue
                 ? now.AddMilliseconds(_options.Expiry.Value.TotalMilliseconds)
                 : now.AddMinutes(_options.ExpiryMinutes);
 
             var jwt = new JwtSecurityToken(
-                issuer: _issuer,
+                issuer: _options.Issuer,
                 audience: _options.Audience,
                 claims: jwtClaims,
                 notBefore: now,
@@ -92,7 +79,7 @@ namespace SCL.Auth.Application.Handlers
             };
         }
 
-        public JsonWebRefreshToken CreateRefreshToken(string accessToken)
+        public JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId)
         {
             _jwtSecurityTokenHandler.ValidateToken(accessToken, _tokenValidationParameters,
                 out var validatedSecurityToken);
@@ -103,12 +90,7 @@ namespace SCL.Auth.Application.Handlers
             using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
             var randomBytes = new byte[128];
             rngCryptoServiceProvider.GetBytes(randomBytes);
-            return new JsonWebRefreshToken
-            {
-                Token = Convert.ToBase64String(randomBytes),
-                Expires = jwt.ValidTo.ToTimestamp(),
-                Created = DateTime.Now
-            };
+            return new JsonWebRefreshToken(new Guid(), userId, Convert.ToBase64String(randomBytes), jwt.ValidTo, DateTime.Now);
         }
     }
 }

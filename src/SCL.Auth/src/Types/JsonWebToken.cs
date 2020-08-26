@@ -1,4 +1,4 @@
-namespace SCL.Auth.Core
+namespace SCL.Auth.Types
 {
     public class JsonWebToken
     {

@@ -1,24 +1,24 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using SCL.Auth.Core;
+using SCL.Auth.Types;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace SCL.Auth.Infrastructure.Factory
+namespace SCL.Auth.Factory
 {
     internal static class TokenvalidationFactory
     {
-        public static TokenValidationParameters CreateParameters(JwtOptions options) 
+        public static TokenValidationParameters CreateParameters(JwtOptions options)
             => new TokenValidationParameters
             {
                 RequireAudience = options.RequireAudience,
                 ValidIssuer = options.ValidIssuer,
                 ValidIssuers = options.ValidIssuers,
-                ValidateIssuer = options.ValidateIssuer,
                 ValidateActor = options.ValidateActor,
                 ValidAudience = options.ValidAudience,
                 ValidAudiences = options.ValidAudiences,
                 ValidateAudience = options.ValidateAudience,
+                ValidateIssuer = options.ValidateIssuer,
                 ValidateLifetime = options.ValidateLifetime,
                 ValidateTokenReplay = options.ValidateTokenReplay,
                 ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
@@ -28,7 +28,7 @@ namespace SCL.Auth.Infrastructure.Factory
                 ClockSkew = TimeSpan.Zero
             };
 
-        public static void AddAuthenticationType(this TokenValidationParameters tokenValidationParameters, 
+        public static void AddAuthenticationType(this TokenValidationParameters tokenValidationParameters,
             JwtOptions options)
         {
             if (!string.IsNullOrWhiteSpace(options.AuthenticationType))
@@ -37,9 +37,10 @@ namespace SCL.Auth.Infrastructure.Factory
             }
         }
 
-        public static bool AddCertificate(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options, bool hasCertificate = false)
+        public static void AddIssuerSigningKey(this TokenValidationParameters tokenValidationParameters,
+            JwtOptions options)
         {
+            var hasCertificate = false;
             if (options.Certificate is { })
             {
                 X509Certificate2 certificate = null;
@@ -77,12 +78,6 @@ namespace SCL.Auth.Infrastructure.Factory
                     Console.WriteLine($"Using X.509 certificate for {actionType} tokens.");
                 }
             }
-            return hasCertificate;
-        }
-
-        public static void AddIssuerSigningKey(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options, bool hasCertificate)
-        {
             if (!string.IsNullOrWhiteSpace(options.IssuerSigningKey) && !hasCertificate)
             {
                 if (string.IsNullOrWhiteSpace(options.Algorithm) || hasCertificate)
@@ -103,8 +98,8 @@ namespace SCL.Auth.Infrastructure.Factory
             {
                 tokenValidationParameters.NameClaimType = options.NameClaimType;
             }
-        } 
-        
+        }
+
         public static void AddRoleClaimType(this TokenValidationParameters tokenValidationParameters,
             JwtOptions options)
         {

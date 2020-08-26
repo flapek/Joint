@@ -1,6 +1,6 @@
 using System;
 
-namespace SCL.Auth.Core.Dates
+namespace SCL.Auth.Dates
 {
     internal static class Extensions
     {

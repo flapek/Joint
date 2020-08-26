@@ -1,14 +1,12 @@
 using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Convey;
-using SCL.Auth.Core;
-using SCL.Auth.Infrastructure.Factory;
-using SCL.Auth.Application;
-using SCL.Auth.Application.Handlers;
+using SCL.Auth.Handlers;
+using SCL.Auth.Types;
+using SCL.Auth.Factory;
 
-namespace SCL.Auth.Infrastructure
+namespace SCL.Auth
 {
     public static class Extensions
     {
@@ -23,6 +21,8 @@ namespace SCL.Auth.Infrastructure
                 sectionName = SectionName;
             }
 
+            builder.Services.AddTransient<IJwtHandler, JwtHandler>();
+
             var options = builder.GetOptions<JwtOptions>(sectionName);
             return builder.AddJwt(options, optionsFactory);
         }
@@ -36,19 +36,18 @@ namespace SCL.Auth.Infrastructure
             }
 
             var tokenValidationParameters = TokenvalidationFactory.CreateParameters(options);
+            tokenValidationParameters.AddIssuerSigningKey(options);
             tokenValidationParameters.AddAuthenticationType(options);
-            var hasCertificate = tokenValidationParameters.AddCertificate(options);
-            tokenValidationParameters.AddIssuerSigningKey(options, hasCertificate);
             tokenValidationParameters.AddNameClaimType(options);
             tokenValidationParameters.AddRoleClaimType(options);
 
             builder.Services
-                .AddAuthentication(option =>
+                .AddAuthentication(o =>
                 {
-                    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options.AuthenticationProviderKey , option =>
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
                 {
                     option.Authority = options.Authority;
                     option.Audience = options.Audience;
@@ -68,14 +67,9 @@ namespace SCL.Auth.Infrastructure
 
             builder.Services.AddSingleton(options);
             builder.Services.AddSingleton(tokenValidationParameters);
-            builder.Services.AddTransient<IJwtHandler, JwtHandler>();
 
             return builder;
         }
 
-        public static IApplicationBuilder UseJwt(this IApplicationBuilder app)
-            => app
-            .UseAuthentication()
-            .UseAuthorization();
     }
 }
