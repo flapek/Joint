@@ -11,8 +11,9 @@ before_script:
 script:
   - ./Scripts/build.sh
   - ./Scripts/test.sh
-# after_success:
-  # - ./Scripts/dockerize.sh
+after_success:
+  - ./Scripts/pack.sh
+  - ./Scripts/nugetPush.sh
 notifications:
   email:
     on_success: never
@@ -20,4 +21,3 @@ notifications:
 
 
 
-    
