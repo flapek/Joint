@@ -6,8 +6,9 @@ dotnet: 3.1.100
 branches:
   only:
     - master
+    - develop
 before_script:
-  - chmod -R a+x Scripts
+  - chmod -R a+x scripts
 script:
   - ./Scripts/build.sh
   - ./Scripts/test.sh
@@ -16,6 +17,7 @@ after_success:
   - ./Scripts/nugetPush.sh
 notifications:
   email:
+    - filap4@gmail.com
     on_success: never
     on_failure: always
 
