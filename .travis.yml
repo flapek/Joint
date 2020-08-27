@@ -17,7 +17,8 @@ after_success:
   - ./Scripts/nugetPush.sh
 notifications:
   email:
-    - filap4@gmail.com
+    recipients:
+      - filap4@gmail.com
     on_success: never
     on_failure: always
 
