@@ -14,7 +14,6 @@ script:
   - ./Scripts/test.sh
 after_success:
   - ./Scripts/pack.sh
-  - ./Scripts/nugetPush.sh
 notifications:
   email:
     recipients:
