@@ -9,6 +9,7 @@ branches:
     - develop
 before_script:
   - chmod -R a+x Scripts
+  - chmod -R a+x ./src/*/Scripts
 script:
   - ./Scripts/build.sh
   - ./Scripts/test.sh
