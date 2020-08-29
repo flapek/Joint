@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joint", "src\Joint\src\Join
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joint.Auth", "src\Joint.Auth\src\Joint.Auth.csproj", "{31056651-DB72-4A2E-A56A-35896C5AD67C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCL.Docs.Swagger", "src\Joint.Docs.Swagger\src\SCL.Docs.Swagger.csproj", "{58B774CE-23D4-4F33-B77D-BF87820BD227}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joint.Docs.Swagger", "src\Joint.Docs.Swagger\src\Joint.Docs.Swagger.csproj", "{58B774CE-23D4-4F33-B77D-BF87820BD227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
