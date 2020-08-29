@@ -7,7 +7,7 @@
 	<!--Package info-->
 	<PropertyGroup>
 		<Authors>Marcin Filapek</Authors>
-		<Title>Joint</Title>
+		<Title>Joint.Docs.Swagger</Title>
 		<Copyright>Copyright (c) 2020 Joint</Copyright>
 		<Company></Company>
 		<Product>Joint.Docs.Swagger</Product>
