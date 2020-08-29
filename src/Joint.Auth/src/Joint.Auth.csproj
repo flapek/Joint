@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<!--Package info-->
+	<PropertyGroup>
+		<Authors>Marcin Filapek</Authors>
+		<Title>Joint</Title>
+		<Copyright>Copyright (c) 2020 Joint</Copyright>
+		<Company></Company>
+		<Product>Joint.Auth</Product>
+		<PackageId>Joint.Auth</PackageId>
+		<PackageDescription>This package its created for common functionality.</PackageDescription>
+		<PackageTags>JWT; Bearer; Joint.Auth</PackageTags>
+		<Description>
+			The library give method to registry authentication to project and have custom method to create jwt token.
+		</Description>
+		<RepositoryUrl>https://github.com/flapek/Joint</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Joint\src\Joint.csproj" />
+	</ItemGroup>
+
+</Project>
