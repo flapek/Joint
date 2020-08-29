@@ -1,11 +1,11 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Figgle;
 using Joint.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Figgle;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Joint
 {
@@ -31,7 +31,7 @@ namespace Joint
             }
 
             var version = options.DisplayVersion ? $" {options.Version}" : string.Empty;
-            Console.WriteLine(FiggleFonts.Doom.Render($"{options.Name}{version}"));
+            Console.WriteLine(FiggleFonts.Graffiti.Render($"{options.Name}{version}"));
 
             return builder;
         }
