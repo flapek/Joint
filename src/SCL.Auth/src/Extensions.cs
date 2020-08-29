@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using Convey;
 using SCL.Auth.Handlers;
 using SCL.Auth.Types;
 using SCL.Auth.Factory;
@@ -13,7 +12,7 @@ namespace SCL.Auth
         private const string SectionName = "jwt";
         private const string RegistryName = "auth";
 
-        public static IConveyBuilder AddJwt(this IConveyBuilder builder, string sectionName = SectionName,
+        public static ISCLBuilder AddJwt(this ISCLBuilder builder, string sectionName = SectionName,
             Action<JwtBearerOptions> optionsFactory = null)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
@@ -27,7 +26,7 @@ namespace SCL.Auth
             return builder.AddJwt(options, optionsFactory);
         }
 
-        private static IConveyBuilder AddJwt(this IConveyBuilder builder, JwtOptions options,
+        private static ISCLBuilder AddJwt(this ISCLBuilder builder, JwtOptions options,
             Action<JwtBearerOptions> optionsFactory = null)
         {
             if (!builder.TryRegister(RegistryName))

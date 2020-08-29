@@ -23,31 +23,6 @@
     <RepositoryUrl>https://github.com/flapek/SCL</RepositoryUrl>
   </PropertyGroup>
 
-  <!--Version-->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release'">
-    <VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(ddMMyyyy))</VersionSuffix>
-    <AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
-    <AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
-    <Version Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</Version>
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
-  </PropertyGroup>
-
-  <!--Auto increment 2-->
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
-    <AssemblyFileVersionSettings>None.None.Increment.None</AssemblyFileVersionSettings>
-    <AssemblyVersionSettings>None.None.Increment.None</AssemblyVersionSettings>
-    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />

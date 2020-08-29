@@ -5,6 +5,7 @@ using SCL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Figgle;
 
 namespace SCL
 {
@@ -30,7 +31,7 @@ namespace SCL
             }
 
             var version = options.DisplayVersion ? $" {options.Version}" : string.Empty;
-            Console.WriteLine(Figgle.FiggleFonts.Doom.Render($"{options.Name}{version}"));
+            Console.WriteLine(FiggleFonts.Doom.Render($"{options.Name}{version}"));
 
             return builder;
         }
