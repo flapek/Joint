@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Open.Serialization.Json.Newtonsoft" Version="2.3.1" />
+    <PackageReference Include="Open.Serialization.Json.System" Version="2.3.1" />
+    <PackageReference Include="Open.Serialization.Json.Utf8Json" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Joint\src\Joint.csproj" />
+  </ItemGroup>
+
 </Project>
