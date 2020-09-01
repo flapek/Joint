@@ -5,7 +5,7 @@ namespace Joint.Auth
 {
     public interface IJwtHandler
     {
-        JsonWebToken CreateToken(User user);
+        JsonWebToken CreateToken(string userId, string email);
 
         JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId);
     }

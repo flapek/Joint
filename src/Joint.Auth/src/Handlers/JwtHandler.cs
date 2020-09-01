@@ -34,25 +34,25 @@ namespace Joint.Auth.Handlers
             _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
         }
 
-        public JsonWebToken CreateToken(User user)
+        public JsonWebToken CreateToken(string userId, string email)
         {
-            if (string.IsNullOrWhiteSpace(user.UserID))
+            if (string.IsNullOrWhiteSpace(userId))
             {
-                throw new ArgumentException("User ID claim (subject) cannot be empty.", nameof(user.UserID));
+                throw new ArgumentException("User ID claim (subject) cannot be empty.", userId);
             }
 
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID),
+                new Claim(JwtRegisteredClaimNames.Sub, userId),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
             };
 
-            if (!string.IsNullOrWhiteSpace(user.Username))
+            if (!string.IsNullOrWhiteSpace(email))
             {
-                jwtClaims.Add(new Claim(ServerClaimNames.Username, user.Username));
+                jwtClaims.Add(new Claim(ServerClaimNames.Email, email));
             }
 
             var expires = _options.Expiry.HasValue
@@ -75,7 +75,7 @@ namespace Joint.Auth.Handlers
                 AccessToken = token,
                 RefreshToken = string.Empty,
                 Expires = expires.ToTimestamp(),
-                Id = user.UserID,
+                Id = userId,
             };
         }
 

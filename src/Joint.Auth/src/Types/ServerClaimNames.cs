@@ -2,6 +2,6 @@
 {
     public struct ServerClaimNames
     {
-        public const string Username = "username";
+        public const string Email = "username";
     }
 }
