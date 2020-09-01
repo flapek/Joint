@@ -1,7 +1,10 @@
 namespace Joint.CQRS.Commands
 {
-    //Marker
     public interface ICommand
+    {
+    }
+
+    public interface ICommand<T> : ICommand
     {
     }
 }
