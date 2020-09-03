@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Joint.Auth.Handlers;
 using Joint.Auth.Types;
 using Joint.Auth.Factory;
+using Joint.Auth.Services;
+using Joint.Auth.Middleware;
+using Microsoft.AspNetCore.Builder;
 
 namespace Joint.Auth
 {
@@ -20,8 +23,6 @@ namespace Joint.Auth
                 sectionName = SectionName;
             }
 
-            builder.Services.AddTransient<IJwtHandler, JwtHandler>();
-
             var options = builder.GetOptions<JwtOptions>(sectionName);
             return builder.AddJwt(options, optionsFactory);
         }
@@ -33,6 +34,10 @@ namespace Joint.Auth
             {
                 return builder;
             }
+
+            builder.Services.AddTransient<IJwtHandler, JwtHandler>();
+            builder.Services.AddSingleton<IAccessTokenService, InMemoryAccessTokenService>();
+            builder.Services.AddTransient<AccessTokenValidatorMiddleware>();
 
             var tokenValidationParameters = TokenvalidationFactory.CreateParameters(options);
             tokenValidationParameters.AddIssuerSigningKey(options);
@@ -70,5 +75,7 @@ namespace Joint.Auth
             return builder;
         }
 
+        public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
+            => app.UseMiddleware<AccessTokenValidatorMiddleware>();
     }
 }
