@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,25 +7,23 @@
 	<!--Package info-->
 	<PropertyGroup>
 		<Authors>Marcin Filapek</Authors>
-		<Title>Joint.WebApi</Title>
+		<Title>Joint.DB.Mongo</Title>
 		<Copyright>Copyright (c) 2020 Joint</Copyright>
 		<Company></Company>
-		<Product>Joint.WebApi</Product>
-		<PackageId>Joint.WebApi</PackageId>
+		<Product>Joint.DB.Mongo</Product>
+		<PackageId>Joint.DB.Mongo</PackageId>
 		<PackageDescription>This package its created for common functionality.</PackageDescription>
-		<PackageTags>Joint.WebApi</PackageTags>
+		<PackageTags>Joint.DB.Mongo</PackageTags>
 		<Description></Description>
 		<RepositoryUrl>https://github.com/flapek/Joint</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Open.Serialization.Json.Newtonsoft" Version="2.3.1" />
-		<PackageReference Include="Open.Serialization.Json.System" Version="2.3.1" />
-		<PackageReference Include="Open.Serialization.Json.Utf8Json" Version="2.3.1" />
+		<PackageReference Include="MongoDB.Driver" Version="2.10.4" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Joint.CQRS.Queries\src\Joint.CQRS.Queries.csproj" />
 		<ProjectReference Include="..\..\Joint\src\Joint.csproj" />
 	</ItemGroup>
-
 </Project>
