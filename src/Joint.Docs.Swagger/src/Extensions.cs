@@ -11,7 +11,7 @@ namespace Joint.Docs.Swagger
         private const string SectionName = "swagger";
         private const string RegistryName = "docs.swagger";
 
-        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, string sectionName = SectionName)
+        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, string xmlPath, string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
             {
@@ -19,17 +19,17 @@ namespace Joint.Docs.Swagger
             }
 
             var options = builder.GetOptions<SwaggerOptions>(sectionName);
-            return builder.AddSwaggerDocs(options);
+            return builder.AddSwaggerDocs(options, xmlPath);
         }
 
         public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder,
-            Func<ISwaggerOptionsBuilder, ISwaggerOptionsBuilder> buildOptions)
+            Func<ISwaggerOptionsBuilder, ISwaggerOptionsBuilder> buildOptions, string xmlPath)
         {
             var options = buildOptions(new SwaggerOptionsBuilder()).Build();
-            return builder.AddSwaggerDocs(options);
+            return builder.AddSwaggerDocs(options, xmlPath);
         }
 
-        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, SwaggerOptions options)
+        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, SwaggerOptions options, string xmlPath)
         {
             if (!options.Enabled || !builder.TryRegister(RegistryName))
             {
@@ -50,6 +50,10 @@ namespace Joint.Docs.Swagger
                             Email = options.ContactEmail
                         }
                     });
+
+                if (!string.IsNullOrWhiteSpace(xmlPath))
+                    c.IncludeXmlComments(xmlPath);
+
                 if (options.IncludeSecurity)
                 {
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
