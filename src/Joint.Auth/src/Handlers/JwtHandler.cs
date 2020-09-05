@@ -74,7 +74,6 @@ namespace Joint.Auth.Handlers
             {
                 AccessToken = token,
                 RefreshToken = string.Empty,
-                Expires = expires.ToTimestamp(),
                 Id = userId,
             };
         }
