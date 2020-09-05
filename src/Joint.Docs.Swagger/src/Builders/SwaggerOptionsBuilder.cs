@@ -10,12 +10,6 @@ namespace Joint.Docs.Swagger.Builders
             return this;
         }
 
-        public ISwaggerOptionsBuilder ReDocEnable(bool reDocEnabled)
-        {
-            _options.ReDocEnabled = reDocEnabled;
-            return this;
-        }
-
         public ISwaggerOptionsBuilder WithName(string name)
         {
             _options.Name = name;
