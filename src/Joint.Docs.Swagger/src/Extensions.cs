@@ -3,6 +3,7 @@ using Joint.Docs.Swagger.Builders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Joint.Docs.Swagger
 {
@@ -86,6 +87,7 @@ namespace Joint.Docs.Swagger
                 {
                     c.SwaggerEndpoint($"/{routePrefix}/{options.Name}/swagger.json", options.Title);
                     c.RoutePrefix = routePrefix;
+                    c.DocExpansion(DocExpansion.None);
                 });
         }
     }
