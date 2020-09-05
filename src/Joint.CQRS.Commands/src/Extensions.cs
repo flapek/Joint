@@ -9,10 +9,10 @@ namespace Joint.CQRS.Commands
         public static IJointBuilder AddCommandHandlers(this IJointBuilder builder)
         {
             builder.Services.Scan(s =>
-               s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-                   .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<,>)))
-                   .AsImplementedInterfaces()
-                   .WithTransientLifetime());
+                s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+                    .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<,>)))
+                    .AsImplementedInterfaces()
+                    .WithTransientLifetime());
 
             builder.Services.Scan(s =>
                 s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
