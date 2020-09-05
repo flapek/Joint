@@ -70,26 +70,19 @@ namespace Joint.Docs.Swagger
             return builder;
         }
 
-        public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder app)
         {
-            var options = builder.ApplicationServices.GetService<SwaggerOptions>();
+            var options = app.ApplicationServices.GetService<SwaggerOptions>();
             if (!options.Enabled)
             {
-                return builder;
+                return app;
             }
 
             var routePrefix = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "swagger" : options.RoutePrefix;
 
-            builder.UseStaticFiles()
-                .UseSwagger(c => c.RouteTemplate = routePrefix + "/{documentName}/swagger.json");
-
-            return options.ReDocEnabled
-                ? builder.UseReDoc(c =>
-                {
-                    c.RoutePrefix = routePrefix;
-                    c.SpecUrl = $"{options.Name}/swagger.json";
-                })
-                : builder.UseSwaggerUI(c =>
+            return app
+                .UseSwagger(c => c.RouteTemplate = routePrefix + "/{documentName}/swagger.json")
+                .UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint($"/{routePrefix}/{options.Name}/swagger.json", options.Title);
                     c.RoutePrefix = routePrefix;
