@@ -10,5 +10,5 @@ Quite opposite, **it’s mostly the set of extensions methods along with additio
 [Read me if you want get more info...](/src/Joint)
 
 ## Table of Contents
-- [Joint](/src/Joint)
+- [Getting started](/src/Joint)
 - [Joint.Auth](/src/Joint.Auth)
