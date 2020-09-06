@@ -56,7 +56,7 @@ namespace Joint.Auth
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
                 {
                     option.Authority = options.Authority;
-                    option.Audience = options.Audience;
+                    option.Audience = options.ValidAudience;
                     option.MetadataAddress = options.MetadataAddress;
                     option.SaveToken = options.SaveToken;
                     option.RefreshOnIssuerKeyNotFound = options.RefreshOnIssuerKeyNotFound;

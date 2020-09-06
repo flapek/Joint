@@ -23,7 +23,7 @@ namespace Joint.Auth.Factory
                 ValidateLifetime = options.ValidateLifetime,
                 ValidateTokenReplay = options.ValidateTokenReplay,
                 ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
-                SaveSigninToken = options.SaveSigninToken,
+                SaveSigninToken = options.SaveSignInToken,
                 RequireExpirationTime = options.RequireExpirationTime,
                 RequireSignedTokens = options.RequireSignedTokens,
                 ClockSkew = TimeSpan.Zero

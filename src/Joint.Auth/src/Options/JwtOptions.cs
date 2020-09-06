@@ -11,11 +11,10 @@ namespace Joint.Auth.Options
         public string Issuer { get; set; }
         public string IssuerSigningKey { get; set; }
         public string Authority { get; set; }
-        public string Audience { get; set; }
         public string Challenge { get; set; } = "Bearer";
         public string MetadataAddress { get; set; }
         public bool SaveToken { get; set; } = true;
-        public bool SaveSigninToken { get; set; }
+        public bool SaveSignInToken { get; set; }
         public bool RequireAudience { get; set; } = true;
         public bool RequireHttpsMetadata { get; set; } = true;
         public bool RequireExpirationTime { get; set; } = true;
