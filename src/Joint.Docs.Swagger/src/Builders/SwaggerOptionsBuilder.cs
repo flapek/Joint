@@ -1,3 +1,5 @@
+using Joint.Docs.Swagger.Options;
+
 namespace Joint.Docs.Swagger.Builders
 {
     internal sealed class SwaggerOptionsBuilder : ISwaggerOptionsBuilder

@@ -1,4 +1,6 @@
-namespace Joint.Docs.Swagger
+using Joint.Docs.Swagger.Options;
+
+namespace Joint.Docs.Swagger.Builders
 {
     public interface ISwaggerOptionsBuilder
     {

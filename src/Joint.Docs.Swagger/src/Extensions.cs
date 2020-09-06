@@ -1,5 +1,6 @@
 using System;
 using Joint.Docs.Swagger.Builders;
+using Joint.Docs.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
