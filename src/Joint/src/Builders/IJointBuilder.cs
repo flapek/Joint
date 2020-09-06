@@ -2,7 +2,7 @@ using System;
 using Joint.Types;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Joint
+namespace Joint.Builders
 {
     public interface IJointBuilder
     {

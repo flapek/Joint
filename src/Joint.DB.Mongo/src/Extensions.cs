@@ -1,4 +1,5 @@
 using System;
+using Joint.Builders;
 using Joint.DB.Mongo.Builders;
 using Joint.DB.Mongo.Factories;
 using Joint.DB.Mongo.Initializers;
@@ -25,9 +26,7 @@ namespace Joint.DB.Mongo
             Type seederType = null, bool registerConventions = true)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
 
             var mongoOptions = builder.GetOptions<MongoDbOptions>(sectionName);
             return builder.AddMongo(mongoOptions, seederType, registerConventions);
@@ -44,9 +43,7 @@ namespace Joint.DB.Mongo
             Type seederType = null, bool registerConventions = true)
         {
             if (!builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             if (mongoOptions.SetRandomDatabaseSuffix)
             {
@@ -71,19 +68,13 @@ namespace Joint.DB.Mongo
             builder.Services.AddTransient<IMongoSessionFactory, MongoSessionFactory>();
 
             if (seederType is null)
-            {
                 builder.Services.AddTransient<IMongoDbSeeder, MongoDbSeeder>();
-            }
             else
-            {
                 builder.Services.AddTransient(typeof(IMongoDbSeeder), seederType);
-            }
 
             builder.AddInitializer<IMongoDbInitializer>();
             if (registerConventions && !_conventionsRegistered)
-            {
                 RegisterConventions();
-            }
 
             return builder;
         }
@@ -106,11 +97,8 @@ namespace Joint.DB.Mongo
             string collectionName)
             where TEntity : IIdentifiable<TIdentifiable>
         {
-            builder.Services.AddTransient<IMongoRepository<TEntity, TIdentifiable>>(sp =>
-            {
-                var database = sp.GetService<IMongoDatabase>();
-                return new MongoRepository<TEntity, TIdentifiable>(database, collectionName);
-            });
+            builder.Services.AddTransient<IMongoRepository<TEntity, TIdentifiable>>(sp 
+                => new MongoRepository<TEntity, TIdentifiable>(sp.GetService<IMongoDatabase>(), collectionName));
 
             return builder;
         }

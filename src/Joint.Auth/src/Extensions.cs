@@ -7,6 +7,7 @@ using Joint.Auth.Factory;
 using Joint.Auth.Services;
 using Joint.Auth.Middleware;
 using Microsoft.AspNetCore.Builder;
+using Joint.Builders;
 
 namespace Joint.Auth
 {

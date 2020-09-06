@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Joint.Logging.Options;
+using Joint.Options;
 using Joint.Types;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -74,15 +75,10 @@ namespace Joint.Logging
                 .Enrich.WithProperty("Version", appOptions.Version);
 
             foreach (var (key, value) in loggerOptions.Tags ?? new Dictionary<string, object>())
-            {
                 loggerConfiguration.Enrich.WithProperty(key, value);
-            }
 
             foreach (var (key, value) in loggerOptions.MinimumLevelOverrides ?? new Dictionary<string, string>())
-            {
-                var logLevel = GetLogEventLevel(value);
-                loggerConfiguration.MinimumLevel.Override(key, logLevel);
-            }
+                loggerConfiguration.MinimumLevel.Override(key, GetLogEventLevel(value));
 
             loggerOptions.ExcludePaths?.ToList().ForEach(p => loggerConfiguration.Filter
                 .ByExcluding(Matching.WithProperty<string>("RequestPath", n => n.EndsWith(p))));
@@ -102,9 +98,7 @@ namespace Joint.Logging
             var seqOptions = options.Seq ?? new SeqOptions();
 
             if (consoleOptions.Enabled)
-            {
                 loggerConfiguration.WriteTo.Console();
-            }
 
             if (fileOptions.Enabled)
             {
@@ -135,9 +129,7 @@ namespace Joint.Logging
             }
 
             if (seqOptions.Enabled)
-            {
                 loggerConfiguration.WriteTo.Seq(seqOptions.Url, apiKey: seqOptions.ApiKey);
-            }
         }
 
         private static LogEventLevel GetLogEventLevel(string level)

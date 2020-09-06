@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Joint.Builders;
 using Joint.WebApi.Exceptions;
 using Joint.WebApi.Formatters;
 using Joint.WebApi.Requests;
@@ -41,9 +42,7 @@ namespace Joint.WebApi
             var definitions = app.ApplicationServices.GetRequiredService<WebApiEndpointDefinitions>();
             app.UseRouting();
             if (useAuthorization)
-            {
                 app.UseAuthorization();
-            }
             
             middleware?.Invoke(app);
 
@@ -57,14 +56,10 @@ namespace Joint.WebApi
             IJsonSerializer jsonSerializer = null, string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
             
             if (!builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             if (jsonSerializer is null)
             {

@@ -1,4 +1,5 @@
 using System;
+using Joint.Builders;
 using Joint.Docs.Swagger.Builders;
 using Joint.Docs.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
@@ -16,9 +17,7 @@ namespace Joint.Docs.Swagger
         public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, string xmlPath = "", string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
 
             var options = builder.GetOptions<SwaggerOptions>(sectionName);
             return builder.AddSwaggerDocs(options, xmlPath);
@@ -34,9 +33,7 @@ namespace Joint.Docs.Swagger
         public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, SwaggerOptions options, string xmlPath = "")
         {
             if (!options.Enabled || !builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             builder.Services.AddSingleton(options);
             builder.Services.AddSwaggerGen(c =>

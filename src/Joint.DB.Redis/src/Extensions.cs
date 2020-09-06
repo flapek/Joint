@@ -1,4 +1,5 @@
 using System;
+using Joint.Builders;
 using Joint.DBRedis.Builders;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,9 +13,7 @@ namespace Joint.DBRedis
         public static IJointBuilder AddRedis(this IJointBuilder builder, string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
             
             var options = builder.GetOptions<RedisOptions>(sectionName);
             return builder.AddRedis(options);
@@ -30,9 +29,7 @@ namespace Joint.DBRedis
         public static IJointBuilder AddRedis(this IJointBuilder builder, RedisOptions options)
         {
             if (!builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             builder.Services.AddStackExchangeRedisCache(o =>
             {

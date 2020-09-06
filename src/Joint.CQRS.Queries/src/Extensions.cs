@@ -1,4 +1,5 @@
 using System;
+using Joint.Builders;
 using Joint.CQRS.Queries.Dispatchers;
 using Microsoft.Extensions.DependencyInjection;
 
