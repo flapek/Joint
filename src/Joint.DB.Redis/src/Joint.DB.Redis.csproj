@@ -1,15 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.7" />
-  </ItemGroup>
+	<!--Package info-->
+	<PropertyGroup>
+		<Authors>Marcin Filapek</Authors>
+		<Title>Joint.DB.Redis</Title>
+		<Copyright>Copyright (c) 2020 Joint</Copyright>
+		<Company></Company>
+		<Product>Joint.DB.Redis</Product>
+		<PackageId>Joint.DB.Redis</PackageId>
+		<PackageDescription>This package its created for common functionality.</PackageDescription>
+		<PackageTags>Joint.DB.Redis</PackageTags>
+		<Description></Description>
+		<RepositoryUrl>https://github.com/flapek/Joint</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Joint\src\Joint.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Joint\src\Joint.csproj" />
+	</ItemGroup>
 
 </Project>
