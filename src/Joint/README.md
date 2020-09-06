@@ -53,4 +53,8 @@ The core Joint package also registers AppOptions type which contains the applica
 
 ![cmdRunningService][image1]
 
+## Table of Contents
+- [Getting started](#getting-started)
+- [Joint.Auth](/src/Joint.Auth)
+
 [image1]: https://github.com/flapek/Joint/blob/develop/Resources/cmdRunningService.png

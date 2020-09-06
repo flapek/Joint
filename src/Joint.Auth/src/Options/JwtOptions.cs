@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Joint.Auth.Types
+namespace Joint.Auth.Options
 {
     public class JwtOptions
     {
-        public bool AuthenticationDisabled { get; set; }
         public IEnumerable<string> AllowAnonymousEndpoints { get; set; }
         public CertificateOptions Certificate { get; set; }
         public string Algorithm { get; set; }

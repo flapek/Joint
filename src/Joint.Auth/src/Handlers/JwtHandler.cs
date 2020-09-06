@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using Joint.Auth.Types;
 using Joint.Auth.Dates;
+using Joint.Auth.Options;
 
 namespace Joint.Auth.Handlers
 {

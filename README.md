@@ -7,4 +7,8 @@ Joint is a set of **helper libraries** that can be most of the time (with some e
 Quite opposite, **it’s mostly the set of extensions methods along with additional abstractions** that will help you to deal with common infrastructural concerns.
 
 ## Getting started
-[Read me if you want get more info.](/src/Joint/README.md)
+[Read me if you want get more info...](/src/Joint)
+
+## Table of Contents
+- [Joint](/src/Joint)
+- [Joint.Auth](/src/Joint.Auth)
