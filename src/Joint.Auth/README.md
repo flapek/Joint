@@ -93,7 +93,19 @@ public class UserService
 }
 ```
 
-:warning: **If you are using mobile browser**: Be very careful here!
+:warning: **If you are using ```IAccessTokenService```** don't forget use [[Joint.WebApi](/src/Joint.WebApi) or add:
+
+```c#
+public static IJointBuilder RegisterJoint(this IJointBuilder builder)
+{
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    // Other services.
+
+    return builder;
+}
+```
+
+
 
 ## Options
 - allowAnonymousEndpoints - list of anonymous endpoints used to send request to specific routes.
