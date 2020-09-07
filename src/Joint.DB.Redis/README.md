@@ -40,7 +40,7 @@ public class SomeService
 }
 ```
 
-## options
+## Options
 
 - connectionString - connection string e.g. localhost.
 - instance - optional prefix, that will be added by default to all the keys.

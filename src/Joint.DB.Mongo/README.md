@@ -55,7 +55,7 @@ public class SomeService
 }
 ```
 
-## options
+## Options
 
 - connectionString - connection string e.g. mongodb://localhost:27017.
 - database - database name.
