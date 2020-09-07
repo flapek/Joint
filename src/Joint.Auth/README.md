@@ -93,7 +93,7 @@ public class UserService
 }
 ```
 
-!!
+:warning: **If you are using mobile browser**: Be very careful here!
 
 ## Options
 - allowAnonymousEndpoints - list of anonymous endpoints used to send request to specific routes.
