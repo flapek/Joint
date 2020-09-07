@@ -2,6 +2,7 @@
 
 ## MongoDB
 Adds the set of conventions and ease of use for [MongoDB](https://www.mongodb.com/) integration with .NET Core.
+![MongoRobo3T][image1]
 
 ## Installation
 ```
@@ -72,7 +73,6 @@ public class SomeService
 }
 ```
 
-
 ## Table of Contents
 - [Getting started](/src/Joint)
 - [Joint.Auth](/src/Joint.Auth)
@@ -84,3 +84,6 @@ public class SomeService
 - [Joint.Docs.Swagger](/src/Joint.Docs.Swagger)
 - [Joint.Logging](/src/Joint.Logging)
 - [Joint.WebApi](/src/Joint.WebApi)
+
+
+[image1]: https://github.com/flapek/Joint/blob/master/Resources/MongoRobo3T.png

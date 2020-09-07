@@ -93,6 +93,8 @@ public class UserService
 }
 ```
 
+!!
+
 ## Options
 - allowAnonymousEndpoints - list of anonymous endpoints used to send request to specific routes.
 - certificate - if is not null algorithm use specific certificate else use symmetric key.
