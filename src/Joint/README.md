@@ -8,7 +8,7 @@ In order to get started with Joint, simply install the core package:
 dotnet add package Joint
 ```
 
-Its sole responsibility is to expose IJointBuilder being used by other packages, which provides fluent API experience, similar to built-in ASP.NET Core IServiceCollection and IApplicationBuilder abstractions.
+Its sole responsibility is to expose ```IJointBuilder``` being used by other packages, which provides fluent API experience, similar to built-in ASP.NET Core ```IServiceCollection``` and ```IApplicationBuilder``` abstractions.
 
 ```c#
 public class Program
@@ -25,9 +25,9 @@ public class Program
 }
 ```
 
-Whether you’re using just a Program.cs on its own (yes, you can build your web applications and microservices without a need of having Startup class and AddMvc() along with full UseMvc() middleware) or doing it with a Startup.cs included, just invoke AddJoint() on IServiceCollection instance within the ConfigureServices() method and start using Joint packages.
+Whether you’re using just a Program.cs on its own (yes, you can build your web applications and microservices without a need of having Startup class and AddMvc() along with full UseMvc() middleware) or doing it with a Startup.cs included, just invoke ```AddJoint()``` on ```IServiceCollection``` instance within the ```ConfigureServices()``` method and start using Joint packages.
 
-The core Joint package also registers AppOptions type which contains the application name (and it’s purely optional).
+The core Joint package also registers ```AppOptions``` type which contains the application name (and it’s purely optional).
 
 ## Options
 
