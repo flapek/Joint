@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Joint.WebApi.Exceptions
+namespace Joint.Exception.Exceptions
 {
     public class ExceptionResponse
     {

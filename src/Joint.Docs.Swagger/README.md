@@ -72,6 +72,7 @@ Having this done your docs should be available at **http://{host}:{port}/{routeP
 - [Joint.DB.Mongo](/src/Joint.DB.Mongo)
 - [Joint.DB.Redis](/src/Joint.DB.Redis)
 - [Joint.Docs.Swagger](#docs)
+- [Joint.Exception](/src/Joint.Exception)
 - [Joint.Logging](/src/Joint.Logging)
 - [Joint.WebApi](/src/Joint.WebApi)
 

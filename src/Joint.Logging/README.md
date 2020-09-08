@@ -98,5 +98,6 @@ public class SomeService
 - [Joint.DB.Mongo](/src/Joint.DB.Mongo)
 - [Joint.DB.Redis](/src/Joint.DB.Redis)
 - [Joint.Docs.Swagger](/src/Joint.Docs.Swagger)
+- [Joint.Exception](/src/Joint.Exception)
 - [Joint.Logging](#logging)
 - [Joint.WebApi](/src/Joint.WebApi)

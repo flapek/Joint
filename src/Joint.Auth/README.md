@@ -170,6 +170,7 @@ public static IJointBuilder RegisterJoint(this IJointBuilder builder)
 - [Joint.DB.Mongo](/src/Joint.DB.Mongo)
 - [Joint.DB.Redis](/src/Joint.DB.Redis)
 - [Joint.Docs.Swagger](/src/Joint.Docs.Swagger)
+- [Joint.Exception](/src/Joint.Exception)
 - [Joint.Logging](/src/Joint.Logging)
 - [Joint.WebApi](/src/Joint.WebApi)
 
