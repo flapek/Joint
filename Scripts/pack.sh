@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$TRAVIS_COMMIT_MESSAGE" = "ignore" ]; then
+if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
   case "$TRAVIS_BRANCH" in
     "master")
     for dir in src/*/
