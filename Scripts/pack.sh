@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
+  echo Start publishing NuGet packages.
   case "$TRAVIS_BRANCH" in
     "master")
     for dir in src/*/
@@ -9,8 +10,7 @@ if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
         exec ./$dir/Scripts/dotnet-pack.sh &
         wait
     done
-  
-    echo Finished publishing NuGet packages.
     ;;
   esac
+  echo Finished publishing NuGet packages.
 fi
