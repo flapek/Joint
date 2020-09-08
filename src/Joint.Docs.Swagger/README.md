@@ -63,13 +63,15 @@ Having this done your docs should be available at **http://{host}:{port}/{routeP
 ```
 
 ## Table of Contents
+## Table of Contents
 - [Getting started](/src/Joint)
 - [Joint.Auth](/src/Joint.Auth)
 - [Joint.CQRS.Commands](/src/Joint.CQRS.Commands)
 - [Joint.CQRS.Events](/src/Joint.CQRS.Events)
 - [Joint.CQRS.Queries](/src/Joint.CQRS.Queries)
 - [Joint.DB.Mongo](/src/Joint.DB.Mongo)
-- [Joint.DB.Redis](#redis)
-- [Joint.Docs.Swagger](/src/Joint.Docs.Swagger)
+- [Joint.DB.Redis](/src/Joint.DB.Redis)
+- [Joint.Docs.Swagger](#docs)
 - [Joint.Logging](/src/Joint.Logging)
 - [Joint.WebApi](/src/Joint.WebApi)
+
