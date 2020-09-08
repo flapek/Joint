@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Joint.Types;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Joint
+namespace Joint.Builders
 {
     public sealed class JointBuilder : IJointBuilder
     {

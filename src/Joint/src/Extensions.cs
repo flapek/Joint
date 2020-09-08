@@ -1,4 +1,6 @@
 using Figgle;
+using Joint.Builders;
+using Joint.Options;
 using Joint.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -16,19 +18,16 @@ namespace Joint
         public static IJointBuilder AddJoint(this IServiceCollection services, string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
 
             var builder = JointBuilder.Create(services);
             var options = builder.GetOptions<AppOptions>(sectionName);
             builder.Services.AddMemoryCache();
             services.AddSingleton(options);
             services.AddSingleton<IServiceId, ServiceId>();
+
             if (!options.DisplayBanner || string.IsNullOrWhiteSpace(options.Name))
-            {
                 return builder;
-            }
 
             var version = options.DisplayVersion ? $" {options.Version}" : string.Empty;
             Console.WriteLine(FiggleFonts.Graffiti.Render($"{options.Name}{version}"));

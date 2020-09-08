@@ -10,9 +10,7 @@ namespace Joint.Types
         public void AddInitializer(IInitializer initializer)
         {
             if (initializer is null || _initializers.Contains(initializer))
-            {
                 return;
-            }
 
             _initializers.Add(initializer);
 
@@ -21,9 +19,7 @@ namespace Joint.Types
         public async Task InitializeAsync()
         {
             foreach (var initializer in _initializers)
-            {
                 await initializer.InitializeAsync();
-            }
         }
     }
 }

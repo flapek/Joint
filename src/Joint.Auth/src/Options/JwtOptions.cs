@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace Joint.Auth.Types
+namespace Joint.Auth.Options
 {
     public class JwtOptions
     {
-        public bool AuthenticationDisabled { get; set; }
         public IEnumerable<string> AllowAnonymousEndpoints { get; set; }
         public CertificateOptions Certificate { get; set; }
         public string Algorithm { get; set; }
         public string Issuer { get; set; }
         public string IssuerSigningKey { get; set; }
         public string Authority { get; set; }
-        public string Audience { get; set; }
         public string Challenge { get; set; } = "Bearer";
         public string MetadataAddress { get; set; }
         public bool SaveToken { get; set; } = true;
-        public bool SaveSigninToken { get; set; }
+        public bool SaveSignInToken { get; set; }
         public bool RequireAudience { get; set; } = true;
         public bool RequireHttpsMetadata { get; set; } = true;
         public bool RequireExpirationTime { get; set; } = true;

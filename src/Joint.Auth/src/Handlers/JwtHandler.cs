@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using Joint.Auth.Types;
 using Joint.Auth.Dates;
+using Joint.Auth.Options;
 
 namespace Joint.Auth.Handlers
 {
@@ -61,7 +62,7 @@ namespace Joint.Auth.Handlers
 
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
-                audience: _options.Audience,
+                audience: _options.ValidAudience,
                 claims: jwtClaims,
                 notBefore: now,
                 expires: expires,

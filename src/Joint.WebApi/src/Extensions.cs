@@ -1,15 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Joint.WebApi.Exceptions;
+using Joint.Builders;
 using Joint.WebApi.Formatters;
 using Joint.WebApi.Requests;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +11,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Open.Serialization.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace Joint.WebApi
 {
@@ -41,9 +41,7 @@ namespace Joint.WebApi
             var definitions = app.ApplicationServices.GetRequiredService<WebApiEndpointDefinitions>();
             app.UseRouting();
             if (useAuthorization)
-            {
                 app.UseAuthorization();
-            }
             
             middleware?.Invoke(app);
 
@@ -57,14 +55,10 @@ namespace Joint.WebApi
             IJsonSerializer jsonSerializer = null, string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
             
             if (!builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             if (jsonSerializer is null)
             {
@@ -114,25 +108,8 @@ namespace Joint.WebApi
 
             builder.Services.AddTransient<IRequestDispatcher, RequestDispatcher>();
 
-            if (builder.Services.All(s => s.ServiceType != typeof(IExceptionToResponseMapper)))
-            {
-                builder.Services.AddTransient<IExceptionToResponseMapper, EmptyExceptionToResponseMapper>();
-            }
-
             return builder;
         }
-
-        public static IJointBuilder AddErrorHandler<T>(this IJointBuilder builder)
-            where T : class, IExceptionToResponseMapper
-        {
-            builder.Services.AddTransient<ErrorHandlerMiddleware>();
-            builder.Services.AddSingleton<IExceptionToResponseMapper, T>();
-
-            return builder;
-        }
-
-        public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
-            => builder.UseMiddleware<ErrorHandlerMiddleware>();
 
         public static IApplicationBuilder UseAllForwardedHeaders(this IApplicationBuilder builder,
             bool resetKnownNetworksAndProxies = true)
@@ -400,11 +377,6 @@ namespace Joint.WebApi
             }
 
             return (T) TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(data);
-        }
-        
-        private class EmptyExceptionToResponseMapper : IExceptionToResponseMapper
-        {
-            public ExceptionResponse Map(Exception exception) => null;
         }
     }
 }

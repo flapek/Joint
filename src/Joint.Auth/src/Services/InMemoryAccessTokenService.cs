@@ -1,4 +1,4 @@
-﻿using Joint.Auth.Types;
+﻿using Joint.Auth.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;

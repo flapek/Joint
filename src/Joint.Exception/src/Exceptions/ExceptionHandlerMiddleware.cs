@@ -1,20 +1,19 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Open.Serialization.Json;
 
-namespace Joint.WebApi.Exceptions
+namespace Joint.Exception.Exceptions
 {
-    internal sealed class ErrorHandlerMiddleware : IMiddleware
+    internal sealed class ExceptionHandlerMiddleware : IMiddleware
     {
         private readonly IExceptionToResponseMapper _exceptionToResponseMapper;
         private readonly IJsonSerializer _jsonSerializer;
-        private readonly ILogger<ErrorHandlerMiddleware> _logger;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-        public ErrorHandlerMiddleware(IExceptionToResponseMapper exceptionToResponseMapper,
-            IJsonSerializer jsonSerializer, ILogger<ErrorHandlerMiddleware> logger)
+        public ExceptionHandlerMiddleware(IExceptionToResponseMapper exceptionToResponseMapper,
+            IJsonSerializer jsonSerializer, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _exceptionToResponseMapper = exceptionToResponseMapper;
             _jsonSerializer = jsonSerializer;
@@ -27,14 +26,14 @@ namespace Joint.WebApi.Exceptions
             {
                 await next(context);
             }
-            catch (Exception exception)
+            catch (System.Exception exception)
             {
                 _logger.LogError(exception, exception.Message);
                 await HandleErrorAsync(context, exception);
             }
         }
 
-        private async Task HandleErrorAsync(HttpContext context, Exception exception)
+        private async Task HandleErrorAsync(HttpContext context, System.Exception exception)
         {
             var exceptionResponse = _exceptionToResponseMapper.Map(exception);
             context.Response.StatusCode = (int) (exceptionResponse?.StatusCode ?? HttpStatusCode.BadRequest);

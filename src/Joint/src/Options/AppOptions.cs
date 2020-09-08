@@ -1,4 +1,4 @@
-namespace Joint.Types
+namespace Joint.Options
 {
     public class AppOptions
     {

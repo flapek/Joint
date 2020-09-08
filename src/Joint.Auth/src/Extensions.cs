@@ -7,6 +7,8 @@ using Joint.Auth.Factory;
 using Joint.Auth.Services;
 using Joint.Auth.Middleware;
 using Microsoft.AspNetCore.Builder;
+using Joint.Builders;
+using Joint.Auth.Options;
 
 namespace Joint.Auth
 {
@@ -39,7 +41,7 @@ namespace Joint.Auth
             builder.Services.AddSingleton<IAccessTokenService, InMemoryAccessTokenService>();
             builder.Services.AddTransient<AccessTokenValidatorMiddleware>();
 
-            var tokenValidationParameters = TokenvalidationFactory.CreateParameters(options);
+            var tokenValidationParameters = TokenValidationFactory.CreateParameters(options);
             tokenValidationParameters.AddIssuerSigningKey(options);
             tokenValidationParameters.AddAuthenticationType(options);
             tokenValidationParameters.AddNameClaimType(options);
@@ -54,7 +56,7 @@ namespace Joint.Auth
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, option =>
                 {
                     option.Authority = options.Authority;
-                    option.Audience = options.Audience;
+                    option.Audience = options.ValidAudience;
                     option.MetadataAddress = options.MetadataAddress;
                     option.SaveToken = options.SaveToken;
                     option.RefreshOnIssuerKeyNotFound = options.RefreshOnIssuerKeyNotFound;

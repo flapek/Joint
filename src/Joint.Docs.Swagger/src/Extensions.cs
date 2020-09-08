@@ -1,5 +1,7 @@
 using System;
+using Joint.Builders;
 using Joint.Docs.Swagger.Builders;
+using Joint.Docs.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -12,30 +14,26 @@ namespace Joint.Docs.Swagger
         private const string SectionName = "swagger";
         private const string RegistryName = "docs.swagger";
 
-        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, string xmlPath, string sectionName = SectionName)
+        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, string xmlPath = "", string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
-            {
                 sectionName = SectionName;
-            }
 
             var options = builder.GetOptions<SwaggerOptions>(sectionName);
             return builder.AddSwaggerDocs(options, xmlPath);
         }
 
         public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder,
-            Func<ISwaggerOptionsBuilder, ISwaggerOptionsBuilder> buildOptions, string xmlPath)
+            Func<ISwaggerOptionsBuilder, ISwaggerOptionsBuilder> buildOptions, string xmlPath = "")
         {
             var options = buildOptions(new SwaggerOptionsBuilder()).Build();
             return builder.AddSwaggerDocs(options, xmlPath);
         }
 
-        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, SwaggerOptions options, string xmlPath)
+        public static IJointBuilder AddSwaggerDocs(this IJointBuilder builder, SwaggerOptions options, string xmlPath = "")
         {
             if (!options.Enabled || !builder.TryRegister(RegistryName))
-            {
                 return builder;
-            }
 
             builder.Services.AddSingleton(options);
             builder.Services.AddSwaggerGen(c =>

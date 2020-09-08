@@ -1,4 +1,4 @@
-namespace Joint.Docs.Swagger
+namespace Joint.Docs.Swagger.Options
 {
     public class SwaggerOptions
     {

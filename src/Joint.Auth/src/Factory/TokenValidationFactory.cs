@@ -3,10 +3,11 @@ using Joint.Auth.Types;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Joint.Auth.Options;
 
 namespace Joint.Auth.Factory
 {
-    internal static class TokenvalidationFactory
+    internal static class TokenValidationFactory
     {
         public static TokenValidationParameters CreateParameters(JwtOptions options)
             => new TokenValidationParameters
@@ -22,7 +23,7 @@ namespace Joint.Auth.Factory
                 ValidateLifetime = options.ValidateLifetime,
                 ValidateTokenReplay = options.ValidateTokenReplay,
                 ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
-                SaveSigninToken = options.SaveSigninToken,
+                SaveSigninToken = options.SaveSignInToken,
                 RequireExpirationTime = options.RequireExpirationTime,
                 RequireSignedTokens = options.RequireSignedTokens,
                 ClockSkew = TimeSpan.Zero
