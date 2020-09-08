@@ -1,9 +1,7 @@
 # Joint.Auth
-
 JWT authentication.
 
 ## JWT
-
 Adds the integration with [JWT][jwt] using an available authentication middleware and system components to validate and grant the access tokens.
 
 ## Installation
@@ -16,8 +14,7 @@ dotnet add package Joint.Auth
 - [Microsoft.AspNetCore.Authentication.JwtBearer](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/)
 
 ## Usage
-
-Extend IJointBuilder with AddJwt() that will register the required services.
+Extend ```IJointBuilder``` with ```AddJwt()``` that will register the required services.
 
 ```c#
 public static IJointBuilder RegisterJoint(this IJointBuilder builder)
@@ -29,7 +26,7 @@ public static IJointBuilder RegisterJoint(this IJointBuilder builder)
 }
 ```
 
-Then, invoke UseAccessTokenValidator() extension from IApplicationBuilder.
+Then, invoke ```UseAccessTokenValidator()``` extension from ```IApplicationBuilder```.
 
 ```c#
 public static IApplicationBuilder UseJoint(this IApplicationBuilder app)
@@ -42,7 +39,7 @@ public static IApplicationBuilder UseJoint(this IApplicationBuilder app)
 }
 ```
 
-Creating the access tokens can be done by using IJwtHandler interface.
+Creating the access tokens can be done by using ```IJwtHandler``` interface.
 
 ```c#
 public class UserService
@@ -67,7 +64,7 @@ public class UserService
 }
 ```
 
-To blacklist and deactivate the access tokens, use IAccessTokenService and invoke UseAccessTokenValidator() extension. Blacklisted tokens are kept in cache for the period of their expiry.
+To blacklist and deactivate the access tokens, use ```IAccessTokenService``` and invoke ```UseAccessTokenValidator()``` extension. Blacklisted tokens are kept in cache for the period of their expiry.
 
 ```c#
 public static IApplicationBuilder UseJoint(this IApplicationBuilder app)
@@ -104,8 +101,6 @@ public static IJointBuilder RegisterJoint(this IJointBuilder builder)
     return builder;
 }
 ```
-
-
 
 ## Options
 - allowAnonymousEndpoints - list of anonymous endpoints used to send request to specific routes.
