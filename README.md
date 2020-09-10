@@ -1,4 +1,9 @@
-# Joint [![Build Status](https://travis-ci.org/flapek/Joint.svg?branch=master)](https://travis-ci.org/flapek/Joint)
+# Joint
+
+Branch             |Build status                                                  
+|-------------------|-----------------------------------------------------
+|master             |[![Build Status](https://travis-ci.org/flapek/Joint.svg?branch=master)](https://travis-ci.org/flapek/Joint)
+|develop            |[![Build Status](https://travis-ci.org/flapek/Joint.svg?branch=develop)](https://travis-ci.org/flapek/Joint)
 
 ## Welcome to Joint
 
