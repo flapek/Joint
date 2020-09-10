@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
+if [ "$TRAVIS_COMMIT" = "pack" ]; then
   echo Start publishing NuGet packages.
   case "$TRAVIS_BRANCH" in
     "master")
