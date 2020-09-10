@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "TRAVIS_COMMI:$TRAVIS_COMMI"
+echo "TRAVIS_COMMIT:$TRAVIS_COMMIT"
 echo "TRAVIS_COMMIT_MESSAGE:$TRAVIS_COMMIT_MESSAGE"
 
-if [ "$TRAVIS_COMMIT" = "pack" ]; then
+if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
   echo Start publishing NuGet packages.
   case "$TRAVIS_BRANCH" in
     "master")
