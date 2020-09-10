@@ -12,7 +12,7 @@ namespace Joint.Exception
 {
     public static class Extensions
     {
-        public static IJointBuilder AddErrorHandler<T>(this IJointBuilder builder, IJsonSerializer jsonSerializer = null,)
+        public static IJointBuilder AddErrorHandler<T>(this IJointBuilder builder, IJsonSerializer jsonSerializer = null)
             where T : class, IExceptionToResponseMapper
         {
             builder.Services.AddTransient<ExceptionHandlerMiddleware>();
