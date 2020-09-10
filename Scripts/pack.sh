@@ -1,7 +1,7 @@
 #!/bin/bash
-echo Start publishing NuGet packages.
 case "$TRAVIS_BRANCH" in
   "master")
+  echo Start publishing NuGet packages.
   for dir in src/*/
   do
       dir=${dir%*/}
@@ -9,6 +9,6 @@ case "$TRAVIS_BRANCH" in
       exec ./$dir/Scripts/dotnet-pack.sh &
       wait
   done
+  echo Finished publishing NuGet packages.
   ;;
 esac
-echo Finished publishing NuGet packages.
