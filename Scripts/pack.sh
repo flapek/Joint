@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "TRAVIS_COMMIT:$TRAVIS_COMMIT"
-echo "TRAVIS_COMMIT_MESSAGE:$TRAVIS_COMMIT_MESSAGE"
+echo "TRAVIS_COMMIT_MESSAGE:$TRAVIS_COMMIT_MESSAGE,,"
 
 if [ "$TRAVIS_COMMIT_MESSAGE" = "pack" ]; then
   echo Start publishing NuGet packages.
