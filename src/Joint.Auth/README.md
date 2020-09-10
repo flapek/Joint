@@ -90,7 +90,7 @@ public class UserService
 }
 ```
 
-:warning: **If you are using ```IAccessTokenService```** don't forget use [[Joint.WebApi](/src/Joint.WebApi) or add:
+:warning: **If you are using ```IAccessTokenService```** don't forget use [Joint.WebApi](/src/Joint.WebApi) or add:
 
 ```c#
 public static IJointBuilder RegisterJoint(this IJointBuilder builder)
