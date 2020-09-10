@@ -16,12 +16,15 @@ namespace Joint.Exception
             where T : class, IExceptionToResponseMapper
         {
             builder.Services.AddTransient<ExceptionHandlerMiddleware>();
-            var factory = new Open.Serialization.Json.Newtonsoft.JsonSerializerFactory(new JsonSerializerSettings
+            if (jsonSerializer is null)
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = { new StringEnumConverter(true) }
-            });
-            jsonSerializer = factory.GetSerializer();
+                var factory = new Open.Serialization.Json.Newtonsoft.JsonSerializerFactory(new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    Converters = { new StringEnumConverter(true) }
+                });
+                jsonSerializer = factory.GetSerializer();
+            }
             builder.Services.AddSingleton(jsonSerializer);
 
             if (builder.Services.All(s => s.ServiceType != typeof(IExceptionToResponseMapper)))
