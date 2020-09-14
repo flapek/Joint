@@ -6,7 +6,7 @@ using Open.Serialization.Json;
 
 namespace Joint.Exception.Exceptions
 {
-    internal sealed class ExceptionHandlerMiddleware : IMiddleware
+    public sealed class ExceptionHandlerMiddleware : IMiddleware
     {
         private readonly IExceptionToResponseMapper _exceptionToResponseMapper;
         private readonly IJsonSerializer _jsonSerializer;
