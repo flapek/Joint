@@ -1,12 +1,12 @@
 ﻿using Joint.Builders;
 using Joint.Exception.Exceptions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Open.Serialization.Json;
-using System.Linq;
 
 namespace Joint.Exception
 {
@@ -25,12 +25,16 @@ namespace Joint.Exception
                 });
                 jsonSerializer = factory.GetSerializer();
             }
+
+            if (jsonSerializer.GetType().Namespace?.Contains("Newtonsoft") == true)
+            {
+                builder.Services.Configure<KestrelServerOptions>(o => o.AllowSynchronousIO = true);
+                builder.Services.Configure<IISServerOptions>(o => o.AllowSynchronousIO = true);
+            }
+
             builder.Services.AddSingleton(jsonSerializer);
 
-            if (builder.Services.All(s => s.ServiceType != typeof(IExceptionToResponseMapper)))
-                builder.Services.AddTransient<IExceptionToResponseMapper, EmptyExceptionToResponseMapper>();
-            else
-                builder.Services.AddSingleton<IExceptionToResponseMapper, T>();
+            builder.Services.AddSingleton<IExceptionToResponseMapper, T>();
 
             return builder;
         }
