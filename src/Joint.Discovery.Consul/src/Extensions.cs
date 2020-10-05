@@ -134,7 +134,7 @@ namespace Joint.Discovery.Consul
             {
                 Interval = ParseTime(options.PingInterval),
                 DeregisterCriticalServiceAfter = ParseTime(options.RemoveAfterInterval),
-                Http = $"{scheme}{options.Address}/{(options.Port > 0 ? $":{options.Port}" : string.Empty)}" +
+                Http = $"{scheme}{options.Address}{(options.Port > 0 ? $":{options.Port}" : string.Empty)}" +
                        $"{pingEndpoint}"
             };
             registration.Checks = new[] {check};
