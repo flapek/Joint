@@ -1,15 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Polly" Version="7.2.1" />
-  </ItemGroup>
+	<!--Package info-->
+	<PropertyGroup>
+		<Authors>Marcin Filapek</Authors>
+		<Title>Joint.HTTP</Title>
+		<Copyright>Copyright (c) 2020 Joint</Copyright>
+		<Company></Company>
+		<Product>Joint.HTTP</Product>
+		<PackageId>Joint.HTTP</PackageId>
+		<PackageDescription>This package its created for common functionality.</PackageDescription>
+		<PackageTags>Joint.HTTP</PackageTags>
+		<Description></Description>
+		<RepositoryUrl>https://github.com/flapek/Joint</RepositoryUrl>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Joint\src\Joint.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Polly" Version="7.2.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Joint\src\Joint.csproj" />
+	</ItemGroup>
 
 </Project>
