@@ -124,7 +124,7 @@ namespace Joint.Discovery.Consul
                 options.PingEndpoint.StartsWith("/") ? options.PingEndpoint : $"/{options.PingEndpoint}";
             if (pingEndpoint.EndsWith("/"))
             {
-                pingEndpoint = pingEndpoint.Substring(0, pingEndpoint.Length - 1);
+                pingEndpoint = pingEndpoint[0..^1];
             }
 
             var scheme = options.Address.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)
