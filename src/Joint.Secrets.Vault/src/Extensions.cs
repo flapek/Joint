@@ -110,13 +110,14 @@ namespace Joint.Secrets.Vault
             if (!string.IsNullOrWhiteSpace(kvPath) && options.Kv.Enabled)
             {
                 Console.WriteLine($"Loading settings from Vault: '{options.Url}', KV path: '{kvPath}'.");
+                var secrets = new KeyValueSecrets(client, options);
                 var data = new JsonParser()
-                    .Parse(JObject.FromObject(await new KeyValueSecrets(client, options).GetAsync(kvPath)));
+                    .Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
 
                 if (!options.Kv.AllInOne)
                 {
                     var jsonSerializer = new JsonSerializer();
-                    var paths = jsonSerializer.Deserialize<>(data);
+                    var paths = jsonSerializer.Deserialize<Paths>(data);
                     foreach (var path in paths)
                     {
                         
