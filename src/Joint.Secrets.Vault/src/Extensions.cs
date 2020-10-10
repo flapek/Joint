@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VaultSharp;
 using VaultSharp.V1.AuthMethods;
@@ -109,10 +110,19 @@ namespace Joint.Secrets.Vault
             if (!string.IsNullOrWhiteSpace(kvPath) && options.Kv.Enabled)
             {
                 Console.WriteLine($"Loading settings from Vault: '{options.Url}', KV path: '{kvPath}'.");
-                var keyValueSecrets = new KeyValueSecrets(client, options);
-                var secret = await keyValueSecrets.GetAsync(kvPath);
-                var parser = new JsonParser();
-                var data = parser.Parse(JObject.FromObject(secret));
+                var data = new JsonParser()
+                    .Parse(JObject.FromObject(await new KeyValueSecrets(client, options).GetAsync(kvPath)));
+
+                if (!options.Kv.AllInOne)
+                {
+                    var jsonSerializer = new JsonSerializer();
+                    var paths = jsonSerializer.Deserialize<>(data);
+                    foreach (var path in paths)
+                    {
+                        
+                    }
+                }
+
                 var source = new MemoryConfigurationSource {InitialData = data};
                 builder.Add(source);
             }
