@@ -117,11 +117,11 @@ namespace Joint.Secrets.Vault
                 if (!options.Kv.AllInOne)
                 {
                     var jsonSerializer = new JsonSerializer();
-                    var paths = jsonSerializer.Deserialize<Paths>(data);
-                    foreach (var path in paths)
-                    {
+                    //var paths = jsonSerializer.Deserialize<Paths>(data);
+                    //foreach (var path in paths)
+                    //{
                         
-                    }
+                    //}
                 }
 
                 var source = new MemoryConfigurationSource {InitialData = data};
