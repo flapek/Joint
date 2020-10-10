@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Interfaces
 {
     public interface ICertificatesService
     {

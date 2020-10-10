@@ -2,7 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Joint.Secrets.Vault.Exceptions;
+using Joint.Secrets.Vault.Helpers;
+using Joint.Secrets.Vault.Interfaces;
 using Joint.Secrets.Vault.Internals;
+using Joint.Secrets.Vault.Models;
+using Joint.Secrets.Vault.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
@@ -74,7 +79,7 @@ namespace Joint.Secrets.Vault
             {
                 if (!string.IsNullOrWhiteSpace(options.Key))
                 {
-                    options.Kv = new VaultOptions.KeyValueOptions
+                    options.Kv = new KeyValueOptions
                     {
                         Enabled = options.Enabled,
                         Path = options.Key
@@ -142,7 +147,7 @@ namespace Joint.Secrets.Vault
             }
         }
 
-        private static Task InitLeaseAsync(string key, IVaultClient client, VaultOptions.LeaseOptions options,
+        private static Task InitLeaseAsync(string key, IVaultClient client, LeaseOptions options,
             IDictionary<string, string> configuration)
             => options.Type.ToLowerInvariant() switch
             {
@@ -155,7 +160,7 @@ namespace Joint.Secrets.Vault
             };
 
         private static async Task SetActiveDirectorySecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options, IDictionary<string, string> configuration)
+            LeaseOptions options, IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.ActiveDirectory;
             var mountPoint = string.IsNullOrWhiteSpace(options.MountPoint) ? name : options.MountPoint;
@@ -170,7 +175,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetAzureSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Azure;
@@ -185,7 +190,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetConsulSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Consul;
@@ -199,7 +204,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetDatabaseSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Database;
@@ -221,7 +226,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetRabbitMqSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.RabbitMQ;
@@ -235,7 +240,7 @@ namespace Joint.Secrets.Vault
             }, credentials.LeaseId, credentials.LeaseDurationSeconds, credentials.Renewable));
         }
 
-        private static void SetSecrets(string key, VaultOptions.LeaseOptions options,
+        private static void SetSecrets(string key, LeaseOptions options,
             IDictionary<string, string> configuration, string name,
             Func<(object, Dictionary<string, string>, string, int, bool)> lease)
         {
@@ -254,7 +259,7 @@ namespace Joint.Secrets.Vault
             return (client, settings);
         }
 
-        private static void SetTemplates(string key, VaultOptions.LeaseOptions lease,
+        private static void SetTemplates(string key, LeaseOptions lease,
             IDictionary<string, string> configuration, IDictionary<string, string> values)
         {
             if (lease.Templates is null || !lease.Templates.Any())

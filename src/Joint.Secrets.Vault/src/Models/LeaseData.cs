@@ -1,6 +1,6 @@
 using System;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Models
 {
     public class LeaseData
     {

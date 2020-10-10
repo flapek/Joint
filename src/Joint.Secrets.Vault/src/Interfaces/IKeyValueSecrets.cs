@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Interfaces
 {
     public interface IKeyValueSecrets
     {

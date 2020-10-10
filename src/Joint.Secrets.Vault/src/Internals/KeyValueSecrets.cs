@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Joint.Secrets.Vault.Exceptions;
+using Joint.Secrets.Vault.Interfaces;
+using Joint.Secrets.Vault.Options;
 using Newtonsoft.Json;
 using VaultSharp;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Exceptions
 {
     internal sealed class VaultAuthTypeNotSupportedException : Exception
     {
@@ -10,9 +10,7 @@ namespace Joint.Secrets.Vault
         {
         }
 
-        public VaultAuthTypeNotSupportedException(string message, string authType) : base(message)
-        {
-            AuthType = authType;
-        }
+        public VaultAuthTypeNotSupportedException(string message, string authType) : base(message) 
+            => AuthType = authType;
     }
 }

@@ -1,3 +1,5 @@
+using Joint.Secrets.Vault.Interfaces;
+using Joint.Secrets.Vault.Options;
 using System;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -12,7 +14,7 @@ namespace Joint.Secrets.Vault.Internals
     internal sealed class CertificatesIssuer : ICertificatesIssuer
     {
         private readonly IVaultClient _client;
-        private readonly VaultOptions.PkiOptions _options;
+        private readonly PkiOptions _options;
         private readonly CertificateFormat _certificateFormat;
         private readonly PrivateKeyFormat _privateKeyFormat;
         private readonly string _mountPoint;

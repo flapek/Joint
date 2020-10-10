@@ -1,3 +1,4 @@
+using Joint.Secrets.Vault.Interfaces;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
