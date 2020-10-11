@@ -2,7 +2,6 @@ using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Joint.Auth.Handlers;
-using Joint.Auth.Types;
 using Joint.Auth.Factory;
 using Joint.Auth.Services;
 using Joint.Auth.Middleware;

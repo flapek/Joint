@@ -2,7 +2,7 @@
 
 namespace Joint.Secrets.Vault.Models
 {
-    internal sealed class Paths
+    internal sealed class Path
     {
         public IEnumerable<string> Paths { get; set; }
     }
