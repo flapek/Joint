@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +10,11 @@ using Joint.Secrets.Vault.Internals;
 using Joint.Secrets.Vault.Models;
 using Joint.Secrets.Vault.Options;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VaultSharp;
@@ -53,7 +56,7 @@ namespace Joint.Secrets.Vault
                     services.AddSingleton(LeaseService);
                     services.AddSingleton(CertificatesService);
                     services.AddHostedService<VaultHostedService>();
-                    if (options.Pki is {})
+                    if (options.Pki is { })
                     {
                         services.AddSingleton<ICertificatesIssuer, CertificatesIssuer>();
                     }
@@ -61,7 +64,7 @@ namespace Joint.Secrets.Vault
                     {
                         services.AddSingleton<ICertificatesIssuer, EmptyCertificatesIssuer>();
                     }
-                    
+
                 })
                 .ConfigureAppConfiguration((ctx, cfg) =>
                 {
@@ -86,7 +89,7 @@ namespace Joint.Secrets.Vault
                         Path = options.Key
                     };
                 }
-                
+
                 return;
             }
 
@@ -94,7 +97,7 @@ namespace Joint.Secrets.Vault
             {
                 throw new VaultException($"Invalid KV engine version: {options.Kv.EngineVersion} (available: 1 or 2).");
             }
-                
+
             if (options.Kv.EngineVersion == 0)
             {
                 options.Kv.EngineVersion = 2;
@@ -111,34 +114,41 @@ namespace Joint.Secrets.Vault
             {
                 Console.WriteLine($"Loading settings from Vault: '{options.Url}', KV path: '{kvPath}'.");
                 var secrets = new KeyValueSecrets(client, options);
-                var data = new JsonParser()
-                    .Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
+                var source = new MemoryConfigurationSource();
+                var parser = new JsonParser();
+                var data = parser.Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
 
                 if (!options.Kv.AllInOne)
                 {
-                    var jsonSerializer = new JsonSerializer();
-                    //var paths = jsonSerializer.Deserialize<Paths>(data);
-                    //foreach (var path in paths)
-                    //{
-                        
-                    //}
-                }
+                    var paths = new List<string>();
+                    paths.AddRange(data.Values);
+                    var d = new ConcurrentDictionary<string, string>();
+                    foreach (var path in paths)
+                    {
+                        var x = parser.Parse(JObject.FromObject(await secrets.GetAsync(path)));
+                        foreach (var item in x)
+                            d.AddOrUpdate(item.Key, item, (oldKey, oldValue) => item);
+                    }
 
-                var source = new MemoryConfigurationSource {InitialData = data};
+                    source.InitialData = d;
+                }
+                else
+                    source.InitialData = data;
+
                 builder.Add(source);
             }
 
-            if (options.Pki is {} && options.Pki.Enabled)
+            if (options.Pki is { } && options.Pki.Enabled)
             {
                 Console.WriteLine("Initializing Vault PKI.");
                 await SetPkiSecretsAsync(client, options);
             }
-            
+
             if (options.Lease is null || !options.Lease.Any())
             {
                 return;
             }
-            
+
             var configuration = new Dictionary<string, string>();
             foreach (var (key, lease) in options.Lease)
             {
@@ -153,7 +163,7 @@ namespace Joint.Secrets.Vault
 
             if (configuration.Any())
             {
-                var source = new MemoryConfigurationSource {InitialData = configuration};
+                var source = new MemoryConfigurationSource { InitialData = configuration };
                 builder.Add(source);
             }
         }
