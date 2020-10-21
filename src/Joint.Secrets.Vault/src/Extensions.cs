@@ -10,12 +10,9 @@ using Joint.Secrets.Vault.Internals;
 using Joint.Secrets.Vault.Models;
 using Joint.Secrets.Vault.Options;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VaultSharp;
 using VaultSharp.V1.AuthMethods;
@@ -64,7 +61,6 @@ namespace Joint.Secrets.Vault
                     {
                         services.AddSingleton<ICertificatesIssuer, EmptyCertificatesIssuer>();
                     }
-
                 })
                 .ConfigureAppConfiguration((ctx, cfg) =>
                 {
@@ -116,24 +112,22 @@ namespace Joint.Secrets.Vault
                 var secrets = new KeyValueSecrets(client, options);
                 var source = new MemoryConfigurationSource();
                 var parser = new JsonParser();
-                var data = parser.Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
+                var parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
 
                 if (!options.Kv.AllInOne)
                 {
-                    var paths = new List<string>();
-                    paths.AddRange(data.Values);
-                    var d = new ConcurrentDictionary<string, string>();
-                    foreach (var path in paths)
+                    var appSettings = new ConcurrentDictionary<string, string>();
+                    foreach (var path in parseData.Values)
                     {
-                        var x = parser.Parse(JObject.FromObject(await secrets.GetAsync(path)));
-                        foreach (var item in x)
-                            d.AddOrUpdate(item.Key, item, (oldKey, oldValue) => item);
+                        parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(path)));
+                        foreach (var item in parseData)
+                            appSettings.AddOrUpdate(item.Key, item.Value, (oldKey, oldValue) => item.Value);
                     }
 
-                    source.InitialData = d;
+                    source.InitialData = appSettings;
                 }
                 else
-                    source.InitialData = data;
+                    source.InitialData = parseData;
 
                 builder.Add(source);
             }
