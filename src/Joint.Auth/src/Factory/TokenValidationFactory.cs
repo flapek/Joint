@@ -1,5 +1,4 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Joint.Auth.Types;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;

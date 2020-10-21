@@ -1,6 +1,6 @@
 using System;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Exceptions
 {
     internal sealed class VaultException : Exception
     {

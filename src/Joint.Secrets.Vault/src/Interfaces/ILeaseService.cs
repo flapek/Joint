@@ -1,6 +1,7 @@
+using Joint.Secrets.Vault.Models;
 using System.Collections.Generic;
 
-namespace Joint.Secrets.Vault
+namespace Joint.Secrets.Vault.Interfaces
 {
     public interface ILeaseService
     {

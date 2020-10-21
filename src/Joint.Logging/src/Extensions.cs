@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Joint.Logging.Options;
 using Joint.Options;
-using Joint.Types;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;

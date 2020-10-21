@@ -1,8 +1,14 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Joint.Secrets.Vault.Exceptions;
+using Joint.Secrets.Vault.Helpers;
+using Joint.Secrets.Vault.Interfaces;
 using Joint.Secrets.Vault.Internals;
+using Joint.Secrets.Vault.Models;
+using Joint.Secrets.Vault.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
@@ -47,7 +53,7 @@ namespace Joint.Secrets.Vault
                     services.AddSingleton(LeaseService);
                     services.AddSingleton(CertificatesService);
                     services.AddHostedService<VaultHostedService>();
-                    if (options.Pki is {})
+                    if (options.Pki is { })
                     {
                         services.AddSingleton<ICertificatesIssuer, CertificatesIssuer>();
                     }
@@ -55,7 +61,6 @@ namespace Joint.Secrets.Vault
                     {
                         services.AddSingleton<ICertificatesIssuer, EmptyCertificatesIssuer>();
                     }
-                    
                 })
                 .ConfigureAppConfiguration((ctx, cfg) =>
                 {
@@ -74,13 +79,13 @@ namespace Joint.Secrets.Vault
             {
                 if (!string.IsNullOrWhiteSpace(options.Key))
                 {
-                    options.Kv = new VaultOptions.KeyValueOptions
+                    options.Kv = new KeyValueOptions
                     {
                         Enabled = options.Enabled,
                         Path = options.Key
                     };
                 }
-                
+
                 return;
             }
 
@@ -88,7 +93,7 @@ namespace Joint.Secrets.Vault
             {
                 throw new VaultException($"Invalid KV engine version: {options.Kv.EngineVersion} (available: 1 or 2).");
             }
-                
+
             if (options.Kv.EngineVersion == 0)
             {
                 options.Kv.EngineVersion = 2;
@@ -104,25 +109,40 @@ namespace Joint.Secrets.Vault
             if (!string.IsNullOrWhiteSpace(kvPath) && options.Kv.Enabled)
             {
                 Console.WriteLine($"Loading settings from Vault: '{options.Url}', KV path: '{kvPath}'.");
-                var keyValueSecrets = new KeyValueSecrets(client, options);
-                var secret = await keyValueSecrets.GetAsync(kvPath);
+                var secrets = new KeyValueSecrets(client, options);
+                var source = new MemoryConfigurationSource();
                 var parser = new JsonParser();
-                var data = parser.Parse(JObject.FromObject(secret));
-                var source = new MemoryConfigurationSource {InitialData = data};
+                var parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
+
+                if (!options.Kv.AllInOne)
+                {
+                    var appSettings = new ConcurrentDictionary<string, string>();
+                    foreach (var path in parseData.Values)
+                    {
+                        parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(path)));
+                        foreach (var item in parseData)
+                            appSettings.AddOrUpdate(item.Key, item.Value, (oldKey, oldValue) => item.Value);
+                    }
+
+                    source.InitialData = appSettings;
+                }
+                else
+                    source.InitialData = parseData;
+
                 builder.Add(source);
             }
 
-            if (options.Pki is {} && options.Pki.Enabled)
+            if (options.Pki is { } && options.Pki.Enabled)
             {
                 Console.WriteLine("Initializing Vault PKI.");
                 await SetPkiSecretsAsync(client, options);
             }
-            
+
             if (options.Lease is null || !options.Lease.Any())
             {
                 return;
             }
-            
+
             var configuration = new Dictionary<string, string>();
             foreach (var (key, lease) in options.Lease)
             {
@@ -137,12 +157,12 @@ namespace Joint.Secrets.Vault
 
             if (configuration.Any())
             {
-                var source = new MemoryConfigurationSource {InitialData = configuration};
+                var source = new MemoryConfigurationSource { InitialData = configuration };
                 builder.Add(source);
             }
         }
 
-        private static Task InitLeaseAsync(string key, IVaultClient client, VaultOptions.LeaseOptions options,
+        private static Task InitLeaseAsync(string key, IVaultClient client, LeaseOptions options,
             IDictionary<string, string> configuration)
             => options.Type.ToLowerInvariant() switch
             {
@@ -155,7 +175,7 @@ namespace Joint.Secrets.Vault
             };
 
         private static async Task SetActiveDirectorySecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options, IDictionary<string, string> configuration)
+            LeaseOptions options, IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.ActiveDirectory;
             var mountPoint = string.IsNullOrWhiteSpace(options.MountPoint) ? name : options.MountPoint;
@@ -170,7 +190,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetAzureSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Azure;
@@ -185,7 +205,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetConsulSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Consul;
@@ -199,7 +219,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetDatabaseSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.Database;
@@ -221,7 +241,7 @@ namespace Joint.Secrets.Vault
         }
 
         private static async Task SetRabbitMqSecretsAsync(string key, IVaultClient client,
-            VaultOptions.LeaseOptions options,
+            LeaseOptions options,
             IDictionary<string, string> configuration)
         {
             const string name = SecretsEngineDefaultPaths.RabbitMQ;
@@ -235,7 +255,7 @@ namespace Joint.Secrets.Vault
             }, credentials.LeaseId, credentials.LeaseDurationSeconds, credentials.Renewable));
         }
 
-        private static void SetSecrets(string key, VaultOptions.LeaseOptions options,
+        private static void SetSecrets(string key, LeaseOptions options,
             IDictionary<string, string> configuration, string name,
             Func<(object, Dictionary<string, string>, string, int, bool)> lease)
         {
@@ -254,7 +274,7 @@ namespace Joint.Secrets.Vault
             return (client, settings);
         }
 
-        private static void SetTemplates(string key, VaultOptions.LeaseOptions lease,
+        private static void SetTemplates(string key, LeaseOptions lease,
             IDictionary<string, string> configuration, IDictionary<string, string> values)
         {
             if (lease.Templates is null || !lease.Templates.Any())

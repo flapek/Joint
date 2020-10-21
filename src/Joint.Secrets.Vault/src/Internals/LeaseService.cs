@@ -1,3 +1,5 @@
+using Joint.Secrets.Vault.Interfaces;
+using Joint.Secrets.Vault.Models;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
