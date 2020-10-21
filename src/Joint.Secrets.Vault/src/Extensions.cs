@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace Joint.Secrets.Vault
                     services.AddSingleton(LeaseService);
                     services.AddSingleton(CertificatesService);
                     services.AddHostedService<VaultHostedService>();
-                    if (options.Pki is {})
+                    if (options.Pki is { })
                     {
                         services.AddSingleton<ICertificatesIssuer, CertificatesIssuer>();
                     }
@@ -60,7 +61,6 @@ namespace Joint.Secrets.Vault
                     {
                         services.AddSingleton<ICertificatesIssuer, EmptyCertificatesIssuer>();
                     }
-                    
                 })
                 .ConfigureAppConfiguration((ctx, cfg) =>
                 {
@@ -85,7 +85,7 @@ namespace Joint.Secrets.Vault
                         Path = options.Key
                     };
                 }
-                
+
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace Joint.Secrets.Vault
             {
                 throw new VaultException($"Invalid KV engine version: {options.Kv.EngineVersion} (available: 1 or 2).");
             }
-                
+
             if (options.Kv.EngineVersion == 0)
             {
                 options.Kv.EngineVersion = 2;
@@ -109,25 +109,40 @@ namespace Joint.Secrets.Vault
             if (!string.IsNullOrWhiteSpace(kvPath) && options.Kv.Enabled)
             {
                 Console.WriteLine($"Loading settings from Vault: '{options.Url}', KV path: '{kvPath}'.");
-                var keyValueSecrets = new KeyValueSecrets(client, options);
-                var secret = await keyValueSecrets.GetAsync(kvPath);
+                var secrets = new KeyValueSecrets(client, options);
+                var source = new MemoryConfigurationSource();
                 var parser = new JsonParser();
-                var data = parser.Parse(JObject.FromObject(secret));
-                var source = new MemoryConfigurationSource {InitialData = data};
+                var parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(kvPath)));
+
+                if (!options.Kv.AllInOne)
+                {
+                    var appSettings = new ConcurrentDictionary<string, string>();
+                    foreach (var path in parseData.Values)
+                    {
+                        parseData = parser.Parse(JObject.FromObject(await secrets.GetAsync(path)));
+                        foreach (var item in parseData)
+                            appSettings.AddOrUpdate(item.Key, item.Value, (oldKey, oldValue) => item.Value);
+                    }
+
+                    source.InitialData = appSettings;
+                }
+                else
+                    source.InitialData = parseData;
+
                 builder.Add(source);
             }
 
-            if (options.Pki is {} && options.Pki.Enabled)
+            if (options.Pki is { } && options.Pki.Enabled)
             {
                 Console.WriteLine("Initializing Vault PKI.");
                 await SetPkiSecretsAsync(client, options);
             }
-            
+
             if (options.Lease is null || !options.Lease.Any())
             {
                 return;
             }
-            
+
             var configuration = new Dictionary<string, string>();
             foreach (var (key, lease) in options.Lease)
             {
@@ -142,7 +157,7 @@ namespace Joint.Secrets.Vault
 
             if (configuration.Any())
             {
-                var source = new MemoryConfigurationSource {InitialData = configuration};
+                var source = new MemoryConfigurationSource { InitialData = configuration };
                 builder.Add(source);
             }
         }
