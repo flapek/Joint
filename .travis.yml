@@ -9,7 +9,6 @@ branches:
     - develop
 before_script:
   - chmod -R a+x Scripts
-  - chmod -R a+x src
 script:
   - ./Scripts/build.sh
   - ./Scripts/test.sh
@@ -21,6 +20,3 @@ notifications:
       - filap4@gmail.com
     on_success: never
     on_failure: always
-
-
-
