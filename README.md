@@ -8,7 +8,7 @@ In order to get started with Joint, simply install the core package:
 dotnet add package Joint
 ```
 
-Its sole responsibility is to expose ```IJointBuilder``` being used by other packages, which provides fluent API experience, similar to built-in ASP.NET Core ```IServiceCollection``` and ```IApplicationBuilder``` abstractions.
+Its sole responsibility is to expose `IJointBuilder` being used by other packages, which provides fluent API experience, similar to built-in ASP.NET Core `IServiceCollection` and `IApplicationBuilder` abstractions.
 
 ```c#
 public class Program
@@ -25,9 +25,9 @@ public class Program
 }
 ```
 
-Whether you’re using just a Program.cs on its own (yes, you can build your web applications and microservices without a need of having Startup class and AddMvc() along with full UseMvc() middleware) or doing it with a Startup.cs included, just invoke ```AddJoint()``` on ```IServiceCollection``` instance within the ```ConfigureServices()``` method and start using Joint packages.
+Whether you’re using just a Program.cs on its own (yes, you can build your web applications and microservices without a need of having Startup class and AddMvc() along with full UseMvc() middleware) or doing it with a Startup.cs included, just invoke `AddJoint()` on `IServiceCollection` instance within the `ConfigureServices()` method and start using Joint packages.
 
-The core Joint package also registers ```AppOptions``` type which contains the application name (and it’s purely optional).
+The core Joint package also registers `AppOptions` type which contains the application name (and it’s purely optional).
 
 ## Options
 
@@ -54,17 +54,17 @@ The core Joint package also registers ```AppOptions``` type which contains the a
 ![cmdRunningService][image1]
 
 ## Table of Contents
-- [Getting started](#getting-started)
-- [Joint.Auth](/src/Joint.Auth)
-- [Joint.CQRS.Commands](/src/Joint.CQRS.Commands)
-- [Joint.CQRS.Events](/src/Joint.CQRS.Events)
-- [Joint.CQRS.Queries](/src/Joint.CQRS.Queries)
-- [Joint.DB.Mongo](/src/Joint.DB.Mongo)
-- [Joint.DB.Redis](/src/Joint.DB.Redis)
-- [Joint.Docs.Swagger](/src/Joint.Docs.Swagger)
-- [Joint.Exception](/src/Joint.Exception)
-- [Joint.Logging](/src/Joint.Logging)
-- [Joint.WebApi](/src/Joint.WebApi)
 
+- [Joint](https://github.com/flapek/Joint)
+- [Joint.Auth](https://github.com/flapek/Joint.Auth)
+- [Joint.CQRS.Commands](https://github.com/flapek/Joint.CQRS.Commands)
+- [Joint.CQRS.Events](https://github.com/flapek/Joint.CQRS.Events)
+- [Joint.CQRS.Queries](https://github.com/flapek/Joint.CQRS.Queries)
+- [Joint.DB.Mongo](https://github.com/flapek/Joint.DB.Mongo)
+- [Joint.DB.Redis](https://github.com/flapek/Joint.DB.Redis)
+- [Joint.Docs.Swagger](https://github.com/flapek/Joint.Docs.Swagger)
+- [Joint.Exception](https://github.com/flapek/Joint.Exception)
+- [Joint.Logging](https://github.com/flapek/Joint.Logging)
+- [Joint.WebApi](https://github.com/flapek/Joint.WebApi)
 
 [image1]: https://github.com/flapek/Joint/blob/master/Resources/cmdRunningService.png
