@@ -67,4 +67,4 @@ The core Joint package also registers `AppOptions` type which contains the appli
 - [Joint.Logging](https://github.com/flapek/Joint.Logging)
 - [Joint.WebApi](https://github.com/flapek/Joint.WebApi)
 
-[image1]: https://github.com/flapek/Joint/blob/master/Resources/cmdRunningService.png
+[image1]: https://github.com/flapek/Joint-Main/blob/main/Resources/cmdRunningService.png
