@@ -1,5 +1,10 @@
 # Joint
 
+| Branch  | Build status                                                                                                 |
+| ------- | ------------------------------------------------------------------------------------------------------------ |
+| master  | [![Build Status](https://travis-ci.org/flapek/Joint.svg?branch=master)](https://travis-ci.org/flapek/Joint)  |
+| develop | [![Build Status](https://travis-ci.org/flapek/Joint.svg?branch=develop)](https://travis-ci.org/flapek/Joint) |
+
 ## Getting started
 
 In order to get started with Joint, simply install the core package:
@@ -67,4 +72,4 @@ The core Joint package also registers `AppOptions` type which contains the appli
 - [Joint.Logging](https://github.com/flapek/Joint.Logging)
 - [Joint.WebApi](https://github.com/flapek/Joint.WebApi)
 
-[image1]: https://github.com/flapek/Joint/blob/master/Resources/cmdRunningService.png
+[image1]: https://github.com/flapek/Joint-Main/blob/main/Resources/cmdRunningService.png
